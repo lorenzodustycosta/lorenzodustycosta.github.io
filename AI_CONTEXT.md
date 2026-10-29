@@ -160,14 +160,14 @@ cliente. Quando prendi una decisione di design significativa, proponi la riga da
 ### Fase 0 – Setup
 
 **Task**
-- [ ] Struttura cartelle come da §4, `.gitignore` (venv, `dist/`, `__pycache__`)
-- [ ] `requirements.txt` con le dipendenze del §3
-- [ ] `build.py` minimale: copia `static/`, renderizza `templates/pages/index.html` in `dist/`
-- [ ] Opzione `--serve`: server locale su `http://localhost:8000` con rebuild al salvataggio
-- [ ] Gestione dei path assoluti: tutti i link generati partono da una `BASE_URL` configurabile
-- [ ] Workflow `.github/workflows/deploy.yml`: setup Python, install, build, deploy su Pages a ogni push su `main`
-- [ ] README con i comandi: creazione venv, install, `python build.py`, `python build.py --serve`, `pytest`
-- [ ] Pagina placeholder online
+- [x] Struttura cartelle come da §4, `.gitignore` (venv, `dist/`, `__pycache__`)
+- [x] `requirements.txt` con le dipendenze del §3
+- [x] `build.py` minimale: copia `static/`, renderizza `templates/pages/index.html` in `dist/`
+- [x] Opzione `--serve`: server locale su `http://localhost:8000` con rebuild al salvataggio
+- [x] Gestione dei path assoluti: tutti i link generati partono da una `BASE_URL` configurabile
+- [x] Workflow `.github/workflows/deploy.yml`: setup Python, install, build, deploy su Pages a ogni push su `main`
+- [x] README con i comandi: creazione venv, install, `python build.py`, `python build.py --serve`, `pytest`
+- [x] Pagina placeholder online
 
 **Criteri di accettazione**
 - Push su `main` → sito aggiornato su `https://<username>.github.io` senza interventi manuali
@@ -359,7 +359,7 @@ Usare come fonte per popolare `content/`. I testi lunghi dei dettagli li scriver
 
 | Fase | Stato | Note |
 |---|---|---|
-| 0 – Setup | 🟡 in verifica | Struttura, build/serve, test, workflow pronti in locale. Manca: repo GitHub `lorenzodustycosta.github.io`, push e attivazione Pages (source: GitHub Actions) |
+| 0 – Setup | ✅ completata | Online su https://lorenzodustycosta.github.io (placeholder con `noindex`). Il primo deploy ha richiesto un re-run manuale perché Pages non era ancora attivo |
 | 1 – Sito statico | ⬜ | |
 | 2 – Interattività | ⬜ | |
 | 3 – Rifiniture | ⬜ | |
