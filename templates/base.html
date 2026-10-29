@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {# TODO Fase 1: rimuovere il noindex quando il sito ha contenuti veri #}
+  <meta name="robots" content="noindex">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url('css/main.css') }}">
+</head>
+<body>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

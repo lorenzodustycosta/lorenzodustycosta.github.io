@@ -1,0 +1,33 @@
+/* Design token: dalla Fase 1 si aggiungono qui colori, spaziature e tipografia. */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a2e;
+  --color-accent: #3f51b5;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #12121a;
+    --color-text: #e8e8f0;
+    --color-accent: #8c9eff;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+main {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+h1 {
+  color: var(--color-accent);
+}
