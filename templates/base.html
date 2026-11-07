@@ -1,16 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {# TODO Fase 1: rimuovere il noindex quando il sito ha contenuti veri #}
-  <meta name="robots" content="noindex">
-  <title>{% block title %}{% endblock %}</title>
+  {% include "partials/meta.html" %}
+  <link rel="icon" href="{{ url('img/favicon.svg') }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ url('img/apple-touch-icon.png') }}">
+  {# Font self-hosted: precarico i due usati sopra la piega (titoli e testo) #}
+  <link rel="preload" href="{{ url('fonts/source-serif-4-latin-600-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ url('fonts/ibm-plex-sans-latin-400-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ url('css/main.css') }}">
+  {# Applica il tema scelto prima che la pagina venga disegnata, per evitare un lampo di colori sbagliati #}
+  <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <script type="module" src="{{ url('js/theme.js') }}"></script>
+  {# Cloudflare Web Analytics: senza cookie, solo in produzione (non con --serve) #}
+  {% if analytics and site.profile.analytics_token %}
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{ {"token": site.profile.analytics_token} | tojson }}'></script>
+  {% endif %}
+  {% block head %}{% endblock %}
 </head>
 <body>
-  <main>
+  <a class="skip-link" href="#main">{{ t.skip_to_content }}</a>
+  {% include "partials/header.html" %}
+  <main id="main">
     {% block content %}{% endblock %}
   </main>
+  {% include "partials/footer.html" %}
 </body>
 </html>

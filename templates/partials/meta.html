@@ -1,0 +1,31 @@
+{% set full_title = page.title if current == "home" else page.title ~ " · " ~ site.profile.name %}
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ page.description | trim }}">
+{% if current == "404" %}
+<meta name="robots" content="noindex">
+{% else %}
+<link rel="canonical" href="{{ absolute_url(path) }}">
+{% endif %}
+{# Versioni della pagina nelle altre lingue; x-default = lingua del sito (italiano) #}
+{% for other, other_path in translations.items() %}
+<link rel="alternate" hreflang="{{ other }}" href="{{ absolute_url(other_path) }}">
+{% endfor %}
+{% if translations %}
+<link rel="alternate" hreflang="x-default" href="{{ absolute_url(translations[site_language]) }}">
+{% endif %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.profile.name }}">
+<meta property="og:locale" content="{{ {'en': 'en_US', 'it': 'it_IT'}[lang] }}">
+<meta property="og:title" content="{{ full_title }}">
+<meta property="og:description" content="{{ page.description | trim }}">
+<meta property="og:url" content="{{ absolute_url(path) }}">
+{% if site.profile.image %}
+<meta property="og:image" content="{{ absolute_url(site.profile.image) }}">
+{% set og_size = image_size(site.profile.image) %}
+<meta property="og:image:width" content="{{ og_size[0] }}">
+<meta property="og:image:height" content="{{ og_size[1] }}">
+<meta property="og:image:alt" content="{{ site.profile.name }} · {{ site.profile.headline }}">
+<meta name="twitter:card" content="summary_large_image">
+{% else %}
+<meta name="twitter:card" content="summary">
+{% endif %}

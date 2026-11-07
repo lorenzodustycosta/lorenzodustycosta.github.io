@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import page_header with context %}
+
+{% block content %}
+{{ page_header(page) }}
+<div class="container section">
+  <ol class="timeline" role="list">
+    {% for exp in site.experiences %}
+    {% include "partials/experience_entry.html" %}
+    {% endfor %}
+  </ol>
+</div>
+{% endblock %}

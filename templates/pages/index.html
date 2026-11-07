@@ -1,10 +1,61 @@
 {% extends "base.html" %}
-
-{# Placeholder della Fase 0: dalla Fase 1 i testi arriveranno da content/ #}
-{% block title %}Lorenzo Dusty Costa{% endblock %}
+{% from "partials/macros.html" import section_title with context %}
+{% set profile = site.profile %}
 
 {% block content %}
-  <h1>Lorenzo Dusty Costa</h1>
-  <p>Freelance Data Scientist &amp; Backend Developer.</p>
-  <p>Site under construction.</p>
+{% include "partials/hero.html" %}
+
+<div class="container">
+  {% include "partials/services.html" %}
+
+  {# Progetti in evidenza: gli highlight con featured: true, ciascuno con spazio per un'immagine #}
+  {% set featured = site.featured_highlights %}
+  {% if featured %}
+  <section class="section" aria-labelledby="featured-title">
+    {{ section_title("featured-title", t.selected_work) }}
+    <ul class="featured" role="list">
+      {% for exp, h in featured %}
+      {% include "partials/work_card.html" %}
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="section" aria-labelledby="experience-title">
+    {{ section_title("experience-title", site.pages.experience.title) }}
+    {# Sulla home solo le due esperienze più recenti #}
+    <ol class="timeline" role="list">
+      {% for exp in site.experiences[:2] %}
+      {% include "partials/experience_entry.html" %}
+      {% endfor %}
+    </ol>
+    <p class="more"><a href="{{ link('experience/') }}">{{ t.all_experience }} <span aria-hidden="true">→</span></a></p>
+  </section>
+
+  <section class="section" aria-labelledby="toolbox-title">
+    {{ section_title("toolbox-title", t.toolbox) }}
+    <dl class="toolbox">
+      {% for category in site.skill_categories %}
+      {% set skills = category.skills | selectattr("toolbox") | list %}
+      {% if skills %}
+      <div>
+        <dt>{{ category.label }}</dt>
+        <dd>{% for skill in skills %}{{ skill.label }}{{ " · " if not loop.last }}{% endfor %}</dd>
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div>
+        <dt>{{ t.spoken_languages }}</dt>
+        <dd>{{ profile.languages | join(" · ") }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  {# Chiusura: invito a scrivere, dopo aver visto servizi e lavori #}
+  <section class="section cta" aria-labelledby="cta-title">
+    <h2 class="cta-title" id="cta-title">{{ t.cta_title }}</h2>
+    <p class="cta-text">{{ t.cta_text }}</p>
+    <p class="cta-action"><a class="action" href="{{ profile.mailto }}">{{ t.cta_link }} <span aria-hidden="true">→</span></a></p>
+  </section>
+</div>
 {% endblock %}

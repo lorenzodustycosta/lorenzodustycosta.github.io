@@ -1,0 +1,31 @@
+{# Apertura della home: chi sono, cosa faccio, come contattarmi.
+   La foto compare solo se profile.photo è impostato; senza, il testo occupa tutta la riga. #}
+{% from "partials/macros.html" import brand_icon with context %}
+{% set profile = site.profile %}
+<section class="hero">
+  <div class="container hero-inner">
+    {% if profile.photo %}
+    {# width/height evitano lo spostamento del layout; la foto è sopra la piega, quindi niente lazy loading #}
+    <img class="hero-photo" src="{{ url(profile.photo) }}" alt="{{ profile.name }}" width="480" height="480" fetchpriority="high">
+    {% endif %}
+    <div class="hero-text">
+      {# Ogni parte resta intera: se serve andare a capo, si va a capo tra le due #}
+      <p class="label"><span class="nowrap">{{ profile.headline }} ·</span> <span class="nowrap">{{ profile.location }}</span></p>
+      <h1>{{ profile.name }}</h1>
+      <p class="lead">{{ profile.intro | markdown_inline }}</p>
+      {# Azioni: un solo bottone pieno (email), poi una riga di link testuali.
+         Etichette e URL da profile.yaml e i18n.yaml; il link al CV compare solo se profile.cv è impostato. #}
+      <div class="hero-actions">
+        <a class="button" href="{{ profile.mailto }}" title="{{ profile.email }}">{{ t.hero_email }} <span aria-hidden="true">→</span></a>
+        <ul class="hero-links" role="list">
+          {% for link_item in profile.links if link_item.label in ["LinkedIn", "GitHub"] %}
+          <li><a href="{{ link_item.url }}" target="_blank" rel="me noopener">{{ brand_icon(link_item.label) }}{{ link_item.label }}</a></li>
+          {% endfor %}
+          {% if profile.cv %}
+          <li><a href="{{ url(profile.cv) }}" download>{{ t.download_cv }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

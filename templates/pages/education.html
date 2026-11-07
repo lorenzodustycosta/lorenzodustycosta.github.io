@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import page_header with context %}
+
+{% block content %}
+{{ page_header(page) }}
+<div class="container">
+  {% for kind, heading in [("degree", t.degrees), ("school", t.schools), ("certificate", t.certificates)] %}
+  {% set items = site.education | selectattr("kind", "equalto", kind) | list %}
+  {% if items %}
+  <section class="section" aria-labelledby="{{ kind }}-title">
+    <h2 class="section-title" id="{{ kind }}-title">{{ heading }}</h2>
+    <ol class="timeline" role="list">
+      {% for item in items %}
+      {% include "partials/education_entry.html" %}
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{# Servizi freelance, da services.yaml. #}
+{% from "partials/macros.html" import section_title with context %}
+{% set services = site.services %}
+{% set education_ids = site.education | map(attribute="id") | list %}
+<section class="section" aria-labelledby="services-title">
+  {{ section_title("services-title", t.services) }}
+  <div class="services">
+    {% for service in services.services %}
+    <article class="service">
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.summary }}</p>
+      {% if service.recent_work %}
+      <h4 class="label-small">{{ services.related_works_label }}</h4>
+      <ul class="link-list" role="list">
+        {% for work in service.recent_work %}
+        {% set page_path = "education/" if work.link in education_ids else "experience/" %}
+        <li><a href="{{ link(page_path) }}#{{ work.link }}">{{ work.text }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% if services.how_i_work %}
+<section class="section" aria-labelledby="how-title">
+  {{ section_title("how-title", services.how_i_work_label) }}
+  <dl class="modes">
+    {% for mode in services.how_i_work %}
+    <div>
+      <dt>{{ mode.title }}</dt>
+      <dd>{{ mode.text }}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+  {% if services.engagement_models %}
+  {% if services.engagement_models_label %}<h3 class="label-small modes-label">{{ services.engagement_models_label }}</h3>{% endif %}
+  <dl class="modes">
+    {% for model in services.engagement_models %}
+    <div>
+      <dt>{{ model.title }}</dt>
+      <dd>{{ model.text }}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+  {% endif %}
+</section>
+{% endif %}

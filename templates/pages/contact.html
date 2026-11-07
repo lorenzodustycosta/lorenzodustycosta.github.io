@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import page_header with context %}
+{% set profile = site.profile %}
+
+{% block content %}
+{{ page_header(page) }}
+<div class="container section">
+  <dl class="contact-list">
+    <div><dt>{{ t.email }}</dt><dd><a href="{{ profile.mailto }}">{{ profile.email }}</a></dd></div>
+    {% for link_item in profile.links %}
+    <div><dt>{{ link_item.label }}</dt><dd><a href="{{ link_item.url }}" rel="me">{{ link_item.url | string | replace("https://", "") | replace("www.", "") | trim("/") }}</a></dd></div>
+    {% endfor %}
+    <div><dt>{{ t.location }}</dt><dd>{{ profile.location }}</dd></div>
+    <div><dt>{{ t.languages }}</dt><dd>{{ profile.languages | join(", ") }}</dd></div>
+  </dl>
+  {% if profile.cv %}
+  <p class="more"><a href="{{ url(profile.cv) }}" download>{{ t.download_cv }} (PDF) <span aria-hidden="true">↓</span></a></p>
+  {% endif %}
+</div>
+{% endblock %}

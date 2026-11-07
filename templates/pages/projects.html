@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import skill_list, page_header, media_figure with context %}
+
+{% block content %}
+{{ page_header(page) }}
+<div class="container">
+  <section class="section" aria-labelledby="projects-title">
+    <h2 class="section-title" id="projects-title">{{ t.projects }}</h2>
+    {# Un progetto per riga: immagine a sinistra e testo a destra da 48rem, uno sopra l'altro su mobile #}
+    <ul class="project-list" role="list">
+      {% for project in site.projects %}
+      <li class="work project" id="{{ project.id }}">
+        {{ media_figure(project, eager=loop.first) }}
+        <div class="project-body">
+          {% if project.status %}<p class="work-meta"><span class="status">{{ project.status }}</span></p>{% endif %}
+          <h3>{% if project.url %}<a href="{{ project.url }}">{{ project.title }}</a>{% else %}{{ project.title }}{% endif %}</h3>
+          <p>{{ project.summary }}</p>
+          {% if project.body | trim %}<div class="prose">{{ project.body | markdown }}</div>{% endif %}
+          {{ skill_list(project.skills) }}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="publications-title">
+    <h2 class="section-title" id="publications-title">{{ t.publications }}</h2>
+    <ol class="timeline" role="list">
+      {% for pub in site.publications %}
+      <li class="entry entry-static" id="{{ pub.id }}">
+        <span class="entry-dates">{{ pub.published.strftime("%Y-%m") | month_year }}</span>
+        <span class="entry-main">
+          <span class="entry-title">{% if pub.url %}<a href="{{ pub.url }}">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
+          <span class="entry-summary"><em>{{ pub.venue }}</em>{% if pub.publisher %} ({{ pub.publisher }}){% endif %}</span>
+          {% if pub.coauthors %}<span class="entry-summary">{{ t.coauthors }} {{ pub.coauthors | join(", ") }}</span>{% endif %}
+          {% if pub.body | trim %}<span class="prose">{{ pub.body | markdown }}</span>{% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+{% endblock %}

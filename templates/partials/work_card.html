@@ -1,0 +1,10 @@
+{# Un progetto in evidenza (home): un highlight con featured: true.
+   Variabili attese: `exp` (Experience) e `h` (Highlight). Spazio in alto per grafico o immagine. #}
+{% from "partials/macros.html" import date_range, media_figure with context %}
+<li class="work">
+  {{ media_figure(h, reserve=True) }}
+  <p class="work-meta">{% if h.status %}<span class="status">{{ h.status }}</span> · {% endif %}{{ date_range(exp.start, exp.end) }}</p>
+  {% if h.title %}<h3>{{ h.title | keep_hyphenated }}</h3>{% endif %}
+  <p class="work-text">{{ h.text }}</p>
+  <p class="work-link"><a href="{{ link('experience/') }}#{{ exp.id }}">{{ exp.role }}{% if exp.company %} · {{ exp.company }}{% endif %} <span aria-hidden="true">→</span></a></p>
+</li>

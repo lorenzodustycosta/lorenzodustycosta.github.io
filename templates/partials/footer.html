@@ -1,0 +1,12 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {{ build_year }} {{ site.profile.name }}{% if site.profile.piva %} · {{ t.vat_number }} {{ site.profile.piva }}{% endif %}</p>
+    <ul class="footer-links" role="list">
+      <li><a href="{{ site.profile.mailto }}">Email</a></li>
+      {% for link_item in site.profile.links %}
+      <li><a href="{{ link_item.url }}" rel="me">{{ link_item.label }}</a></li>
+      {% endfor %}
+    </ul>
+    <p class="footer-privacy">{% if site.profile.analytics_token %}{{ t.privacy_analytics }} {% endif %}{{ t.privacy_hosting }}</p>
+  </div>
+</footer>

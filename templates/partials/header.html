@@ -1,0 +1,27 @@
+<header class="site-header">
+  <div class="container header-inner">
+    {# Home separata dal menu: su mobile sta in prima riga con lingua e tema, le altre voci sotto #}
+    <a class="home-link" href="{{ link('') }}"{% if current == 'home' %} aria-current="page"{% endif %}>{{ site.pages.home.nav_label }}</a>
+    <nav aria-label="{{ t.main_navigation }}">
+      <ul class="nav-list" role="list">
+        {% for key, page_meta, page_path in nav %}
+        <li><a href="{{ link(page_path) }}"{% if key == current %} aria-current="page"{% endif %}>{{ page_meta.nav_label or page_meta.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="header-tools">
+      {# Selettore di lingua: porta alla stessa pagina nell'altra lingua #}
+      {% if translations %}
+      <ul class="lang-switch" role="list" aria-label="{{ t.language }}">
+        {% for other, other_path in translations.items() %}
+        <li><a href="{{ url(other_path) }}" hreflang="{{ other }}" lang="{{ other }}"{% if other == lang %} aria-current="true"{% endif %}>{{ other | upper }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {# Nascosto finché theme.js non lo attiva: senza JS il tema segue le impostazioni del sistema #}
+      <button class="theme-toggle" type="button" aria-label="{{ t.dark_mode }}" aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 0 18V3z"/><circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </div>
+</header>

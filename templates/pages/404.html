@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import page_header with context %}
+
+{% block content %}
+{{ page_header(page) }}
+<div class="container section">
+  <p class="more"><a href="{{ link('') }}">{{ t.back_home }} <span aria-hidden="true">→</span></a></p>
+</div>
+{% endblock %}
