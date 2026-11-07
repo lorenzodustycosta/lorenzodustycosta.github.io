@@ -1,0 +1,48 @@
+# Services section of the home page.
+# `link` values must match an existing experience or education id (checked at build time).
+
+related_works_label: Lavori correlati
+how_i_work_label: Come lavoro
+
+services:
+  - id: data-science
+    title: Data science e modelli predittivi
+    summary: >-
+      Sviluppo di modelli che rispondono a una domanda concreta: cosa succederà, con quale
+      probabilità, cosa sembra anomalo. Seguo il problema dalla sua definizione
+      e dal feature engineering fino alla valutazione e al rilascio in produzione.
+    recent_work:
+      - text: Forecasting probabilistico day-ahead della produzione eolica
+        link: freelance
+      - text: Previsione dei risultati delle partite di calcio con reti neurali
+        link: wallabies
+      - text: Anomaly detection su serie temporali telco e previsione dei no-show per una piattaforma di prenotazione
+        link: spindox
+      - text: Modelli probabilistici per quote di scommesse e giochi a estrazione
+        link: sisal
+
+  - id: data-analysis
+    title: Data analysis e KPI
+    summary: >-
+      Creazione di KPI e analisi di dati per aiutare le persone a prendere decisione data-driven:
+      scegliere le metriche giuste, costruire e ottimizzare le pipeline di analisi 
+      che le producono e presentare i risultati in modo chiaro.
+    recent_work:
+      - text: KPI su dati di tracking real-time per gli staff tecnici di Serie A
+        link: mathsport
+      - text: Analisi di scouting automatizzate, con lavoro manuale ridotto fino al 70%
+        link: wallabies
+      - text: Rielaborazione dei KPI di un'intera partita passata da oltre 90 minuti a pochi secondi
+        link: freelance
+
+how_i_work:
+  - title: Proof of Concept
+    text: Verificare se un'idea è fattibile con i tuoi dati prima di investirci.
+  - title: Ottimizzazione
+    text: Revisionare e velocizzare modelli e pipeline esistenti.
+  - title: Supporto continuativo
+    text: Continuare a migliorare e mantenere ciò che abbiamo costruito insieme.
+  - title: Lavoro a progetto
+    text: Obiettivi, deliverable e tempistiche concordati in anticipo, così sai cosa ottieni e quando.
+  - title: Time & material
+    text: Impegno flessibile per attività il cui perimetro è ancora in definizione.

@@ -1,0 +1,101 @@
+# Tassonomia delle skill. Gli id sono quelli usati nei campi `skills:` degli altri file.
+- id: languages
+  label: Linguaggi
+  skills:
+    - {id: python, label: Python}
+    - {id: r, label: R}
+    - {id: sql, label: SQL}
+    - {id: java, label: Java}
+    - {id: node-js, label: Node.js}
+    - {id: javascript, label: JavaScript}
+    - {id: html-css, label: HTML & CSS}
+    - {id: bash, label: Bash}
+    - {id: matlab, label: MATLAB}
+    - {id: vba, label: VBA}
+    - {id: fortran, label: Fortran}
+
+- id: data-ml
+  label: Data & ML
+  skills:
+    - {id: machine-learning, label: Machine learning}
+    - {id: deep-learning, label: Deep learning (TCN)}
+    - {id: neural-networks, label: Reti neurali}
+    - {id: xgboost, label: XGBoost}
+    - {id: quantile-regression, label: Regressione quantilica}
+    - {id: feature-engineering, label: Feature engineering}
+    - {id: time-series, label: Serie temporali}
+    - {id: forecasting, label: Forecasting}
+    - {id: probabilistic-modeling, label: Modellazione probabilistica}
+    - {id: anomaly-detection, label: Anomaly detection}
+    - {id: random-forest, label: Random forest}
+    - {id: polars, label: Polars}
+
+- id: math
+  label: Matematica
+  skills:
+    - {id: probability, label: Probabilità}
+    - {id: combinatorics, label: Calcolo combinatorio}
+    - {id: monte-carlo, label: Monte Carlo}
+    - {id: markov-chains, label: Catene di Markov}
+    - {id: mathematical-modeling, label: Modellazione matematica}
+    - {id: numerical-methods, label: Metodi numerici}
+    - {id: pde, label: Equazioni alle derivate parziali}
+    - {id: finite-differences, label: Differenze finite}
+    - {id: crank-nicolson, label: Crank–Nicolson, toolbox: false}
+    - {id: finite-elements, label: Elementi finiti}
+    - {id: numerical-linear-algebra, label: Algebra lineare numerica}
+    - {id: sparse-matrices, label: Matrici sparse}
+    - {id: eigenvalue-problems, label: Problemi agli autovalori}
+
+- id: backend
+  label: Backend
+  skills:
+    - {id: api-design, label: Progettazione di API}
+    - {id: websocket, label: WebSocket}
+    - {id: django, label: Django}
+    - {id: web-scraping, label: Web scraping}
+    - {id: performance-optimization, label: Ottimizzazione delle prestazioni}
+
+- id: databases
+  label: Database
+  skills:
+    - {id: postgresql, label: PostgreSQL}
+    - {id: mongodb, label: MongoDB}
+    - {id: redis, label: Redis}
+    - {id: elasticsearch, label: Elasticsearch}
+    - {id: bigquery, label: BigQuery}
+
+- id: cloud-devops
+  label: Cloud & DevOps
+  skills:
+    - {id: aws, label: AWS}
+    - {id: gcp, label: GCP}
+    - {id: cloud-run, label: Cloud Run}
+    - {id: cloud-scheduler, label: Cloud Scheduler}
+    - {id: cloud-storage, label: Cloud Storage}
+    - {id: docker, label: Docker}
+    - {id: kubernetes, label: Kubernetes}
+    - {id: gitlab-ci, label: GitLab CI/CD}
+    - {id: git, label: Git}
+    - {id: linux, label: Linux}
+    - {id: devops, label: DevOps}
+
+- id: domains
+  label: Settori e interessi
+  skills:
+    - {id: sports-analytics, label: Sports analytics}
+    - {id: energy, label: Energia}
+    - {id: gaming-lottery, label: Gaming e lotterie}
+    - {id: telco, label: Telco}
+    - {id: retail, label: Retail}
+    - {id: healthcare, label: Sanità}
+    - {id: real-estate, label: Immobiliare}
+    - {id: tourism, label: Turismo}
+    - {id: aerospace, label: Aerospazio}
+
+- id: leadership
+  label: Leadership e lavoro di squadra
+  skills:
+    - {id: team-leadership, label: Team leadership}
+    - {id: project-management, label: Project management}
+    - {id: teamwork, label: Lavoro di squadra}

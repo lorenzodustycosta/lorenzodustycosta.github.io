@@ -1,0 +1,69 @@
+# Stringhe di interfaccia (etichette, pulsanti, titoli di sezione fissi).
+# La sezione `en` deve essere completa. Nella sezione `it` le chiavi mancanti
+# usano il testo inglese, e la build stampa un warning con l'elenco.
+
+en:
+  skip_to_content: Skip to content
+  main_navigation: Main
+  language: Language
+  dark_mode: Dark mode
+  services: Services
+  selected_work: Selected work
+  all_experience: All experience
+  cta_title: Have a project in mind?
+  cta_text: Tell me about it in a few lines, even if it is just an idea. I usually reply within a couple of days.
+  cta_link: Write to me
+  hero_email: Write to me
+  toolbox: Toolbox
+  spoken_languages: Spoken languages
+  download_cv: Download CV
+  email: Email
+  location: Location
+  languages: Languages
+  degrees: Degrees
+  schools: Schools
+  certificates: Certificates
+  thesis: Thesis
+  project: Project
+  projects: Projects
+  publications: Publications
+  coauthors: With
+  back_home: Back to the home page
+  present: Present
+  months: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+  privacy_analytics: Privacy-friendly analytics, no cookies.
+  privacy_hosting: Self-hosted fonts, hosted on GitHub Pages.
+  vat_number: VAT no.
+
+it:
+  skip_to_content: Vai al contenuto
+  main_navigation: Principale
+  language: Lingua
+  dark_mode: Modalità scura
+  services: Servizi
+  selected_work: Lavori selezionati
+  all_experience: Tutte le esperienze
+  cta_title: Hai un progetto in mente?
+  cta_text: Raccontamelo in poche righe, anche se è solo un'idea. Di solito rispondo entro un paio di giorni.
+  cta_link: Scrivimi
+  hero_email: Scrivimi
+  toolbox: Strumenti
+  spoken_languages: Lingue parlate
+  download_cv: Scarica il CV
+  email: Email
+  location: Zona
+  languages: Lingue
+  degrees: Lauree
+  schools: Scuole
+  certificates: Certificati
+  thesis: Tesi
+  project: Progetto
+  projects: Progetti
+  publications: Pubblicazioni
+  coauthors: Con
+  back_home: Torna alla home page
+  present: Oggi
+  months: [Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
+  privacy_analytics: Analytics rispettosi della privacy, senza cookie.
+  privacy_hosting: Font self-hosted, sito ospitato su GitHub Pages.
+  vat_number: P. IVA

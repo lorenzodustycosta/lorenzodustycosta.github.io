@@ -1,0 +1,37 @@
+# Titolo, meta description e testo introduttivo di ogni pagina.
+home:
+  title: Lorenzo Dusty Costa · Data Scientist Freelance
+  nav_label: Home
+  description: >
+    Data scientist freelance a Milano e da remote. Forecasting, machine learning, data pipeline e
+    deployment in cloud per sport-tech, energia e altri settori.
+
+experience:
+  title: Esperienza
+  description: >
+    Oltre 10 anni nella data science: startup sport-tech, forecasting energetico, consulenza e
+    matematica applicata a giochi di lotteria e scommesse.
+  intro: >
+    Dalla matematica delle scommesse ai dati real-time per la Serie A, fino al forecasting
+    probabilistico della produzione eolica.
+
+education:
+  title: Formazione
+  description: Laurea magistrale e triennale in Matematica all'Università degli Studi di Milano, summer school e certificati.
+  intro: Una formazione matematica, tenuta aggiornata con corsi e certificati.
+
+projects:
+  title: Progetti e pubblicazioni
+  nav_label: Progetti
+  description: Progetti personali e pubblicazioni peer-reviewed di Lorenzo Dusty Costa.
+  intro: Progetti personali e ricerca.
+
+contact:
+  title: Contatti
+  description: Contatta Lorenzo Dusty Costa per progetti freelance di data science.
+  intro: Il modo più rapido per raggiungermi è l'email. Di solito rispondo entro un paio di giorni.
+
+not_found:
+  title: Pagina non trovata
+  description: Questa pagina non esiste.
+  intro: La pagina che cerchi non esiste o è stata spostata.

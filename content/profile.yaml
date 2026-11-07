@@ -1,0 +1,34 @@
+name: Lorenzo Dusty Costa
+headline: Freelance Data Scientist
+location: Milan area, Italy
+email: lorenzodusty.costa@gmail.com
+email_subject: Contact from website
+availability: Available for freelance projects in data science
+intro: >
+  10+ years of experience and a master's degree in mathematics.
+  I build end-to-end data solutions, from predictive models to APIs and cloud deployment.
+  <br>
+  Outside data work, I co-run [Selos Design](https://selosdesign.com), an interior design studio with my wife. 
+  It taught me to manage clients, deadlines and a small business end to end.
+summary: >
+  Data Scientist with 10+ years of experience and a strong academic background in mathematics.
+  Started developing mathematical models for lottery and betting at Sisal, then expanded into
+  data science consulting, backend development and cloud infrastructure. Over the past 5 years
+  worked for two football-industry startups on end-to-end data solutions, from predictive
+  modeling to cloud deployment. Interested in sport-tech, energy, healthcare, real estate,
+  tourism and aerospace, with an ambition to apply AI for ethical and sustainable impact.
+languages: [Italian, English, Turkish]
+# Partita IVA (11 cifre, tra virgolette), mostrata nel footer:
+piva: "14487210966"
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/lorenzodcosta
+  - label: GitHub
+    url: https://github.com/lorenzodustycosta
+# Da attivare quando i file sono in static/ (la build verifica che esistano):
+# cv: cv/Lorenzo_Dusty_Costa_CV.pdf
+image: img/og-image-en.png   # anteprima social in inglese, 1200x630 px (scripts/social_images.py)
+# photo: img/lorenzo.webp   # foto profilo nella home: quadrata, 480x480 px, < 50 KB
+# Cloudflare Web Analytics (dashboard Cloudflare → Web Analytics → Add a site → snippet JS).
+# Il token è pubblico. Lo script viene incluso solo nella build di produzione, non con --serve.
+analytics_token: 9c394cc7fc454571b7767fc2af293506

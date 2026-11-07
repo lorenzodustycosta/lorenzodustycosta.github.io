@@ -1,0 +1,37 @@
+# Titolo, meta description e testo introduttivo di ogni pagina.
+home:
+  title: Lorenzo Dusty Costa · Freelance Data Scientist
+  nav_label: Home
+  description: >
+    Freelance data scientist based in Milan and remotely. Forecasting, machine learning, data pipelines and
+    cloud deployment for sport-tech, energy and beyond.
+
+experience:
+  title: Experience
+  description: >
+    10+ years in data science: sport-tech startups, energy forecasting, consulting and
+    math applied to lottery and betting.
+  intro: >
+    From the mathematics of betting to real-time data for Serie A and probabilistic
+    wind power forecasting.
+
+education:
+  title: Education
+  description: MSc and BSc in Mathematics at the University of Milan, summer schools and certificates.
+  intro: A mathematical background, kept up to date with courses and certificates.
+
+projects:
+  title: Projects & Publications
+  nav_label: Projects
+  description: Personal projects and peer-reviewed publications by Lorenzo Dusty Costa.
+  intro: Side projects and research.
+
+contact:
+  title: Contact
+  description: Get in touch with Lorenzo Dusty Costa for freelance data science projects.
+  intro: The quickest way to reach me is by email. I usually reply within a couple of days.
+
+not_found:
+  title: Page not found
+  description: This page does not exist.
+  intro: The page you are looking for does not exist or has been moved.

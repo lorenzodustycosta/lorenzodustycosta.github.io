@@ -1,0 +1,48 @@
+# Services section of the home page.
+# `link` values must match an existing experience or education id (checked at build time).
+
+related_works_label: Related Works
+how_i_work_label: How I work
+
+services:
+  - id: data-science
+    title: Data science & predictive modeling
+    summary: >-
+      Models that answer a concrete question: what will happen, how likely it
+      is, what looks unusual. I take the problem from framing and feature
+      engineering to evaluation and release in production.
+    recent_work:
+      - text: Probabilistic day-ahead forecasting of wind power production
+        link: freelance
+      - text: Neural-network prediction of football match outcomes
+        link: wallabies
+      - text: Anomaly detection on telco time series and no-show prediction for a booking platform
+        link: spindox
+      - text: Probabilistic models for betting odds and lottery games
+        link: sisal
+
+  - id: data-analysis
+    title: Data analysis & KPIs
+    summary: >-
+      Turning raw data into numbers people can act on: choosing the right
+      metrics, building and optimizing the analysis pipelines behind them
+      and presenting the results clearly.
+    recent_work:
+      - text: KPIs on real-time tracking data for Serie A coaching staff
+        link: mathsport
+      - text: Automated scouting analysis, cutting manual work by up to 70%
+        link: wallabies
+      - text: Full-match KPI reprocessing reduced from 90+ minutes to seconds
+        link: freelance
+
+how_i_work:
+  - title: Proof of Concept
+    text: Test whether an idea is feasible with your data before you invest in it.
+  - title: Optimization
+    text: Review and speed up existing models and pipelines.
+  - title: Ongoing support
+    text: Keep improving and maintaining what we built together.
+  - title: Fixed-scope project
+    text: Agreed goals, deliverables and timeline up front, so you know what you get and when.
+  - title: Time & materials
+    text: Flexible effort for work whose scope is still taking shape.

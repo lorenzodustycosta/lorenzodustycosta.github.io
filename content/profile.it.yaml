@@ -1,0 +1,34 @@
+name: Lorenzo Dusty Costa
+headline: Data Scientist freelance
+location: Area di Milano, Italia
+email: lorenzodusty.costa@gmail.com
+email_subject: Contatto dal sito web
+availability: Disponibile per progetti freelance di data science
+intro: >
+  Oltre 10 anni di esperienza e laurea magistrale in matematica.
+  Realizzo soluzioni dati end-to-end, dai modelli predittivi alle API fino al deployment in cloud.
+  <br>
+  Oltre al lavoro sui dati, gestisco con mia moglie [Selos Design](https://selosdesign.com), uno studio di interior design. 
+  Mi ha insegnato a gestire clienti, scadenze e una piccola impresa dall'inizio alla fine.
+summary: >
+  Data Scientist con oltre 10 anni di esperienza e una solida formazione accademica in matematica.
+  Ho iniziato sviluppando modelli matematici per lotterie e scommesse in Sisal, per poi ampliare il mio
+  lavoro a consulenza di data science, sviluppo backend e infrastruttura cloud. Negli ultimi 5 anni
+  ho lavorato per due startup del settore calcistico su soluzioni dati end-to-end, dai modelli
+  predittivi al deployment in cloud. Mi interessano sport-tech, energia, sanità, immobiliare,
+  turismo e aerospazio, con l'ambizione di applicare l'AI per un impatto etico e sostenibile.
+languages: [Italiano, Inglese, Turco]
+# Partita IVA (11 cifre, tra virgolette), mostrata nel footer:
+piva: "14487210966"
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/lorenzodcosta
+  - label: GitHub
+    url: https://github.com/lorenzodustycosta
+# Da attivare quando i file sono in static/ (la build verifica che esistano):
+# cv: cv/Lorenzo_Dusty_Costa_CV.pdf
+image: img/og-image.png   # anteprima social, 1200x630 px (scripts/social_images.py)
+# photo: img/lorenzo.webp   # foto profilo nella home: quadrata, 480x480 px, < 50 KB
+# Cloudflare Web Analytics (dashboard Cloudflare → Web Analytics → Add a site → snippet JS).
+# Il token è pubblico. Lo script viene incluso solo nella build di produzione, non con --serve.
+analytics_token: 9c394cc7fc454571b7767fc2af293506
