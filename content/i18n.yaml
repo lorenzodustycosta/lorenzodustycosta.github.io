@@ -11,7 +11,9 @@ en:
   selected_work: Selected work
   all_experience: All experience
   cta_title: Have a project in mind?
-  cta_text: Tell me about it in a few lines, even if it is just an idea. I usually reply within a couple of days.
+  # tra "few" e "lines" c'è uno spazio non separabile (U+00A0): su mobile si va a capo dopo la virgola
+  cta_text: "Tell me about it in a few\u00a0lines, even if it is just an idea."
+  cta_note: I usually reply within a couple of days.
   cta_link: Write to me
   hero_email: Write to me
   toolbox: Toolbox
@@ -44,7 +46,8 @@ it:
   selected_work: Lavori selezionati
   all_experience: Tutte le esperienze
   cta_title: Hai un progetto in mente?
-  cta_text: Raccontamelo in poche righe, anche se è solo un'idea. Di solito rispondo entro un paio di giorni.
+  cta_text: Raccontamelo in poche righe, anche se è solo un'idea.
+  cta_note: Di solito rispondo entro un paio di giorni.
   cta_link: Scrivimi
   hero_email: Scrivimi
   toolbox: Strumenti

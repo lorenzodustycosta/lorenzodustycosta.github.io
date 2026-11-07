@@ -231,6 +231,7 @@ class UiStrings(Model):
     all_experience: str
     cta_title: str
     cta_text: str
+    cta_note: str
     cta_link: str
     hero_email: str
     toolbox: str

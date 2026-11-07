@@ -54,7 +54,8 @@
   {# Chiusura: invito a scrivere, dopo aver visto servizi e lavori #}
   <section class="section cta" aria-labelledby="cta-title">
     <h2 class="cta-title" id="cta-title">{{ t.cta_title }}</h2>
-    <p class="cta-text">{{ t.cta_text }}</p>
+    {# Due frasi, ognuna su una riga propria: niente a capo a metà della seconda #}
+    <p class="cta-text"><span>{{ t.cta_text }}</span> <span>{{ t.cta_note }}</span></p>
     <p class="cta-action"><a class="action" href="{{ profile.mailto }}">{{ t.cta_link }} <span aria-hidden="true">→</span></a></p>
   </section>
 </div>

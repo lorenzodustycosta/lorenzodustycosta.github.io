@@ -1,6 +1,6 @@
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p>© {{ build_year }} {{ site.profile.name }}{% if site.profile.piva %} · {{ t.vat_number }} {{ site.profile.piva }}{% endif %}</p>
+    <p>© {{ build_year }} {{ site.profile.name }}{% if site.profile.piva %} · <span class="nowrap">{{ t.vat_number }} {{ site.profile.piva }}</span>{% endif %}</p>
     <ul class="footer-links" role="list">
       <li><a href="{{ site.profile.mailto }}">Email</a></li>
       {% for link_item in site.profile.links %}

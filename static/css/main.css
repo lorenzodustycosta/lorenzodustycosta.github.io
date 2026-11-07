@@ -317,6 +317,8 @@ figcaption,
 .cta { border-top: 1px solid var(--rule); }
 .cta-title { font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); margin-bottom: 0.75rem; }
 .cta-text { color: var(--ink-muted); max-width: var(--measure); margin-bottom: 1.25rem; }
+/* Una frase per riga; se una frase non ci sta, le sue righe restano bilanciate */
+.cta-text span { display: block; text-wrap: balance; }
 .cta-action { margin: 0; font-size: 1.125rem; }
 
 /* ---- Servizi: due colonne separate da un filetto ---------------------- */
