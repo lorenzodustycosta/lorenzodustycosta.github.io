@@ -1,33 +1,516 @@
-/* Design token: dalla Fase 1 si aggiungono qui colori, spaziature e tipografia. */
-:root {
-  --color-bg: #ffffff;
-  --color-text: #1a1a2e;
-  --color-accent: #3f51b5;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+/* =========================================================================
+   "Quaderno tecnico" — vedi desing_brief.md
+   Tema scuro di default (scelta del proprietario, indipendente dal sistema);
+   il tema chiaro si attiva con data-theme="light" sull'<html> (pulsante in theme.js).
+   ========================================================================= */
+
+/* ---- Font self-hosted (woff2, subset latin, solo i pesi usati) --------- */
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fonts/source-serif-4-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fonts/source-serif-4-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("../fonts/ibm-plex-sans-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("../fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #12121a;
-    --color-text: #e8e8f0;
-    --color-accent: #8c9eff;
-  }
+/* ---- Design token ------------------------------------------------------ */
+:root {
+  /* Colori: tema scuro (default) */
+  --paper: #17171a;
+  --paper-raised: #1e1e22;
+  --ink: #e9e6df;
+  --ink-muted: #a39f96;
+  --rule: #34333a;
+  --link: #86c5a1; /* accento: verde bosco, schiarito per il fondo scuro */
+
+  --font-heading: "Source Serif 4", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --heading-weight: 600;
+  --text-base: 1.0625rem;
+  --leading: 1.6;
+
+  --max-width: 72rem;
+  --measure: 40rem;
+  --radius: 2px;
+  color-scheme: dark;
 }
+
+/* Tema chiaro, scelto a mano con il pulsante */
+:root[data-theme="light"] {
+  --paper: #f7f4ed;
+  --paper-raised: #fbf9f4;
+  --ink: #1c1b18;
+  --ink-muted: #5c5850;
+  --rule: #ddd7ca;
+  --link: #2f5f45; /* accento: verde bosco */
+  color-scheme: light;
+}
+
+/* ---- Base -------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: var(--text-base);
+  line-height: var(--leading);
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
 }
 
-main {
-  max-width: 48rem;
-  margin: 0 auto;
-  padding: 4rem 1rem;
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+h1 { font-size: clamp(2.25rem, 1.6rem + 3vw, 3.5rem); line-height: 1.08; }
+h2 { font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 1rem; }
+/* A capo più regolari: titoli bilanciati, niente parola isolata sull'ultima riga */
+h1, h2, h3, .label, .section-lead { text-wrap: balance; }
+p, li, dd, summary { text-wrap: pretty; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: var(--radius); }
+
+ul[role="list"], ol[role="list"] { list-style: none; margin: 0; padding: 0; }
+
+/* Date e brevi gruppi di parole da non spezzare */
+.dates, .nowrap { white-space: nowrap; }
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 48rem) { .container { padding-inline: 2rem; } }
+
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: 1rem; top: 1rem; z-index: 10; background: var(--paper); padding: 0.5rem 1rem; }
+
+.prose { max-width: var(--measure); }
+.prose > :last-child { margin-bottom: 0; }
+
+/* ---- Etichette e metadati in monospace -------------------------------- */
+.label,
+.label-small,
+.work-meta,
+.entry-dates,
+.entry-meta,
+.tag,
+.skills,
+figcaption,
+.title-original,
+.metrics dt,
+.media-frame,
+.lang-switch,
+.footer-privacy {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
-h1 {
-  color: var(--color-accent);
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--link);
+  margin: 0 0 0.5rem;
+}
+
+.label-small {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* ---- Header ------------------------------------------------------------ */
+.site-header { border-bottom: 1px solid var(--rule); }
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-block: 0.875rem;
+}
+/* Mobile: Home + strumenti in prima riga, menu sotto; da 48rem tutto su una riga */
+.site-header nav { order: 3; flex-basis: 100%; }
+.nav-list { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.home-link, .nav-list a { font-size: 0.9375rem; color: var(--ink-muted); text-decoration: none; }
+.home-link:hover, .home-link[aria-current="page"],
+.nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--ink); text-decoration: underline; }
+
+.header-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+.lang-switch { display: flex; gap: 0.5rem; font-size: 0.8125rem; }
+.lang-switch a { color: var(--ink-muted); text-decoration: none; padding: 0.25rem 0.125rem; }
+.lang-switch a:hover { color: var(--ink); text-decoration: underline; }
+.lang-switch a[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--link); }
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--ink);
+  cursor: pointer;
+}
+@media (min-width: 48rem) {
+  .header-inner, .nav-list { column-gap: 1.25rem; }
+  .site-header nav { order: 0; flex-basis: auto; }
+}
+
+/* ---- Hero -------------------------------------------------------------- */
+.hero { border-bottom: 1px solid var(--rule); padding-block: 3rem; }
+.hero h1 { margin-bottom: 1.25rem; }
+.lead { font-size: 1.125rem; max-width: var(--measure); }
+/* Azioni dell'hero: bottone email + riga di link testuali.
+   Desktop: sulla stessa riga; mobile: bottone a tutta larghezza, link sotto. */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin: 1.75rem 0 0;
+  font-size: 1rem;
+}
+.action { font-weight: 600; }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--link);
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+/* Hover: lo stesso accento, appena più scuro */
+.button:hover { background: color-mix(in srgb, var(--link) 85%, #000); }
+
+.hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0; }
+.hero-links li { display: flex; align-items: center; line-height: 1.5; }
+.hero-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.hero-links a:hover { text-decoration: underline; }
+/* Separatore "·" in monospace prima di ogni link tranne il primo (testo alternativo vuoto per gli screen reader) */
+.hero-links li + li::before {
+  content: "·" / "";
+  font-family: var(--font-mono);
+  color: var(--ink-muted);
+  margin-inline: 0.625rem;
+  /* nel font mono il punto sta un po' basso: lo riallineo al centro delle minuscole */
+  position: relative;
+  top: -0.05em;
+}
+.brand-icon { flex: none; width: 1em; height: 1em; }
+
+@media (max-width: 30rem) {
+  .hero-actions .button { flex: 1 1 100%; }
+}
+
+/* Foto profilo: piccola sopra il testo su mobile, a destra su desktop */
+.hero-inner { display: grid; gap: 1.5rem; }
+.hero-photo {
+  display: block;
+  width: 7rem;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+@media (min-width: 56rem) {
+  .hero { padding-block: 5rem; }
+  .hero-inner:has(> .hero-photo) { grid-template-columns: minmax(0, 1fr) 16rem; gap: 4rem; align-items: center; }
+  .hero-photo { order: 1; width: 100%; }
+}
+
+/* ---- Intestazione delle pagine interne -------------------------------- */
+.page-header { border-bottom: 1px solid var(--rule); padding-block: 3rem 2.5rem; }
+.page-header h1 { font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem); }
+.page-header .lead { margin: 0; color: var(--ink-muted); max-width: none; text-wrap: balance; }
+@media (min-width: 48rem) { .page-header { padding-block: 4.5rem 3.5rem; } }
+
+/* ---- Sezioni ----------------------------------------------------------- */
+/* Le sezioni sono separate dal filetto verde del loro titolo */
+.section { padding-block: 3.5rem; }
+@media (min-width: 48rem) { .section { padding-block: 5rem; } }
+/* Pagine interne: sezioni più compatte, il titolo della pagina fa già da apertura */
+.page-header ~ .container .section,
+.page-header ~ .section { padding-block: 2.5rem; }
+@media (min-width: 48rem) {
+  .page-header ~ .container .section,
+  .page-header ~ .section { padding-block: 3.5rem; }
+}
+
+/* Titolo di sezione: stesso peso per tutte le sezioni della home e delle pagine interne */
+.section-title {
+  color: var(--link);
+  font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--link);
+  margin-bottom: 1.5rem;
+}
+.section-lead { font-family: var(--font-heading); font-size: 1.375rem; line-height: 1.35; max-width: var(--measure); }
+
+.note { color: var(--ink-muted); max-width: var(--measure); margin-top: 2rem; }
+.more { margin: 1.5rem 0 0; font-weight: 600; }
+
+/* ---- Invito a scrivere, in fondo alla home ----------------------------- */
+.cta { border-top: 1px solid var(--rule); }
+.cta-title { font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); margin-bottom: 0.75rem; }
+.cta-text { color: var(--ink-muted); max-width: var(--measure); margin-bottom: 1.25rem; }
+.cta-action { margin: 0; font-size: 1.125rem; }
+
+/* ---- Servizi: due colonne separate da un filetto ---------------------- */
+.services { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
+.service h3 { margin-bottom: 0.75rem; }
+.link-list li { padding-block: 0.5rem; border-top: 1px solid var(--rule); font-size: 0.9375rem; }
+.link-list li:last-child { border-bottom: 1px solid var(--rule); }
+.link-list a { text-decoration: none; color: var(--ink); }
+.link-list a::after { content: " →"; color: var(--link); }
+.link-list a:hover { color: var(--link); }
+
+.modes { display: grid; gap: 1rem; margin: 0; }
+.modes > div { border-top: 1px solid var(--ink); padding-top: 0.75rem; }
+.modes dt { font-weight: 600; }
+.modes dd { margin: 0.25rem 0 0; color: var(--ink-muted); font-size: 0.9375rem; }
+.modes-label { margin: 2.5rem 0 1rem; }
+
+@media (min-width: 48rem) {
+  .services { grid-template-columns: 1fr 1fr; gap: 0; }
+  /* subgrid: titolo, testo, "Lavori correlati" e lista partono alla stessa altezza nelle due colonne */
+  .service { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; padding-right: 2.5rem; }
+  .service > * { margin-top: 0; }
+  .service + .service { padding: 0 0 0 2.5rem; border-left: 1px solid var(--rule); }
+  .modes { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+}
+
+/* ---- Immagini e grafici dei progetti --------------------------------- */
+.media { margin: 0 0 1rem; }
+.media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+figcaption { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.5rem; }
+/* Solo in sviluppo: spazio riservato all'immagine che manca */
+.media-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+/* ---- Progetti in evidenza e progetti ---------------------------------- */
+.featured { display: grid; gap: 2.5rem; }
+.work { scroll-margin-top: 1rem; }
+.work-meta { font-size: 0.75rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.status { color: var(--link); }
+.work-text { font-weight: 600; font-size: 1.0625rem; margin-bottom: 0.5rem; }
+/* Con il titolo breve, la frase del risultato diventa il testo della card */
+.work h3 + .work-text { font-weight: 400; font-size: 1rem; color: var(--ink-muted); }
+.work-link { font-size: 0.9375rem; margin: 0; }
+.work-link a { text-decoration: none; }
+.work-link a:hover { text-decoration: underline; }
+.work h3 { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); margin-bottom: 0.5rem; }
+.work h3 a { color: var(--ink); }
+
+@media (min-width: 48rem) {
+  .featured { grid-template-columns: repeat(2, 1fr); gap: 3.5rem 2.5rem; }
+  /* Solo nella griglia della home (non nella pagina Progetti, dove creerebbe righe vuote).
+     subgrid: immagine (con didascalia), date, titolo, testo e link allineati tra le card della stessa riga */
+  .featured .work { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
+}
+
+/* Pagina Projects: un progetto per riga, immagine a fianco del testo */
+.project-list { display: grid; gap: 3.5rem; }
+.project-body > :last-child { margin-bottom: 0; }
+@media (min-width: 48rem) {
+  .project:has(> .media) { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .project > .media { margin-bottom: 0; }
+}
+
+/* ---- Timeline: esperienze, formazione, pubblicazioni ------------------ */
+.timeline { margin-top: 2rem; border-top: 1px solid var(--ink); }
+.page-header + .section .timeline { margin-top: 0; }
+.entry { border-bottom: 1px solid var(--rule); scroll-margin-top: 1rem; }
+
+.entry summary,
+.entry-static {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  padding-block: 1rem;
+}
+.entry summary { cursor: pointer; list-style: none; }
+.entry summary::-webkit-details-marker { display: none; }
+.entry-dates { grid-column: 1 / -1; font-size: 0.8125rem; color: var(--ink-muted); }
+.entry-main { display: block; }
+.entry-title { display: block; font-weight: 600; }
+.entry-title a { color: var(--ink); }
+.entry-company { font-weight: 400; color: var(--ink-muted); }
+.entry-summary { display: block; color: var(--ink-muted); font-size: 0.9375rem; }
+.entry-static .prose { display: block; margin-top: 0.5rem; font-size: 0.9375rem; }
+.entry-toggle {
+  grid-row: 2;
+  grid-column: 2;
+  width: 1.5rem;
+  height: 1.5rem;
+  align-self: start;
+  position: relative;
+  color: var(--link);
+}
+/* "+" che diventa "−" quando la riga è aperta */
+.entry-toggle::before, .entry-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 50% 20% auto;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.15s ease;
+}
+.entry-toggle::after { transform: rotate(90deg); }
+.entry details[open] .entry-toggle::after { transform: rotate(0deg); }
+.entry summary:hover .entry-title { color: var(--link); }
+
+@media (min-width: 48rem) {
+  .entry summary { grid-template-columns: 11rem 1fr auto; column-gap: 2rem; }
+  .entry-static { grid-template-columns: 11rem 1fr; column-gap: 2rem; }
+  .entry-dates { grid-column: 1; padding-top: 0.2rem; }
+  .entry-toggle { grid-row: 1; grid-column: 3; }
+  .entry-body { padding-left: 13rem; }
+}
+
+.entry-body { padding-bottom: 1.5rem; }
+.entry-meta { font-size: 0.75rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.entry-body .media { max-width: var(--measure); margin-block: 0.5rem 1rem; }
+.highlights > li { padding-block: 1rem; border-top: 1px dashed var(--rule); }
+.highlights > li:first-child { border-top: 0; padding-top: 0.25rem; }
+.highlight-text { font-weight: 600; margin-bottom: 0.5rem; max-width: var(--measure); }
+.highlight-context { color: var(--ink-muted); max-width: var(--measure); }
+.details { margin: 0 0 0.75rem; padding-left: 1.1rem; max-width: var(--measure); font-size: 0.9375rem; }
+.details li { margin-bottom: 0.25rem; }
+.details li::marker { color: var(--ink-muted); }
+.tag { font-size: 0.75rem; font-weight: 400; color: var(--link); white-space: nowrap; }
+.tag::before { content: "["; }
+.tag::after { content: "]"; }
+.skills { font-size: 0.75rem; color: var(--ink-muted); margin: 0.75rem 0 0; }
+.sub-item { margin-top: 1.25rem; padding-top: 0.25rem; border-top: 1px dashed var(--rule); }
+/* Titolo originale della tesi: sotto quello tradotto, più piccolo */
+.title-original { font-size: 0.8125rem; color: var(--ink-muted); margin: -0.25rem 0 0.75rem; max-width: var(--measure); }
+.entry-link { font-size: 0.9375rem; }
+
+/* Metriche: numero grande, etichetta piccola. Solo dentro il dettaglio aperto */
+.metrics { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin: 0.75rem 0 1rem; }
+.metrics > div { display: flex; flex-direction: column-reverse; }
+.metrics dd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--link);
+  font-variant-numeric: tabular-nums;
+}
+.metrics dt { font-size: 0.75rem; color: var(--ink-muted); }
+
+/* ---- Toolbox (home) ---------------------------------------------------- */
+.toolbox { margin: 0; border-top: 1px solid var(--ink); }
+.toolbox > div { padding-block: 0.75rem; border-bottom: 1px solid var(--rule); }
+.toolbox dt { font-weight: 600; }
+.toolbox dd { margin: 0.25rem 0 0; color: var(--ink-muted); font-size: 0.9375rem; }
+@media (min-width: 48rem) {
+  /* subgrid: tutte le righe condividono la colonna delle categorie, larga quanto serve */
+  .toolbox { display: grid; grid-template-columns: max-content 1fr; column-gap: 2.5rem; }
+  .toolbox > div { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .toolbox dt { white-space: nowrap; }
+  .toolbox dd { margin: 0; }
+}
+
+/* ---- Contatti ---------------------------------------------------------- */
+.contact-list { margin: 0; border-top: 1px solid var(--ink); max-width: var(--measure); }
+.contact-list > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--rule); }
+.contact-list dt { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink-muted); padding-top: 0.15rem; }
+.contact-list dd { margin: 0; overflow-wrap: anywhere; } /* gli URL lunghi vanno a capo su mobile */
+
+/* ---- Footer ------------------------------------------------------------ */
+.site-footer { border-top: 1px solid var(--ink); font-size: 0.875rem; color: var(--ink-muted); }
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+  padding-block: 1.5rem 2rem;
+}
+.footer-inner p { margin: 0; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.footer-links a { color: var(--ink-muted); }
+.footer-privacy { flex-basis: 100%; font-size: 0.75rem; }
+
+/* ---- Movimento --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
 }
