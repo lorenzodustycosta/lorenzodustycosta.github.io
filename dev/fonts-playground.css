@@ -1,0 +1,52 @@
+/* =========================================================================
+   Font playground (solo sviluppo)
+   Si carica dopo main.css. fonts-playground.js cambia le variabili di main.css
+   (--font-heading, --font-body, --font-mono, --text-base, --leading,
+   --heading-weight); qui c'è solo il pannello di controllo.
+   ========================================================================= */
+body {
+  /* Spazio per il pannello fisso in basso su mobile */
+  padding-bottom: 50vh;
+}
+
+.pg-panel {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0.75rem 1rem;
+  background: var(--paper-raised);
+  border-top: 2px solid var(--ink);
+  /* Il pannello non deve cambiare mentre si provano i font */
+  font: 0.875rem/1.4 ui-monospace, monospace;
+  accent-color: var(--ink);
+}
+.pg-panel summary { cursor: pointer; font-weight: 700; }
+.pg-form { display: grid; gap: 0.6rem; margin-top: 0.75rem; }
+.pg-form label { display: grid; gap: 0.2rem; }
+.pg-form output { justify-self: end; margin-top: -1.3rem; }
+.pg-form .pg-check { display: flex; align-items: center; gap: 0.5rem; }
+.pg-form select,
+.pg-form button {
+  font: inherit;
+  padding: 0.3rem 0.4rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+.pg-form button { cursor: pointer; }
+.pg-actions { display: flex; gap: 0.5rem; }
+.pg-status { min-height: 1.4em; margin: 0; color: var(--ink-muted); }
+
+@media (min-width: 64rem) {
+  body { padding-bottom: 0; padding-right: 18rem; }
+  .pg-panel {
+    inset: 0 0 0 auto;
+    width: 18rem;
+    max-height: none;
+    border-top: 0;
+    border-left: 2px solid var(--ink);
+  }
+}

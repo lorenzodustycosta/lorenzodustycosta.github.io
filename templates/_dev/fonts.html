@@ -1,0 +1,71 @@
+{#
+  Font playground: la home e una voce di formazione resi con i template e il CSS
+  di produzione, più un pannello per provare combinazioni di font.
+  Generato solo da `python build.py --serve` (vedi DEV_PAGES in build.py).
+  Parametri URL: h, b, m (font), s (dimensione testo), lh (interlinea), hw (peso titoli), t (tema).
+#}
+{% extends "base.html" %}
+
+{% block head %}
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{{ url('_dev/fonts-playground.css') }}">
+<script type="module" src="{{ url('_dev/fonts-playground.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+{% include "partials/hero.html" %}
+<div class="container">
+  {% include "partials/services.html" %}
+  <section class="section" aria-labelledby="featured-title">
+    <h2 class="section-title" id="featured-title">{{ t.selected_work }}</h2>
+    <ul class="featured" role="list">
+      {% for exp, h in site.featured_highlights %}
+      {% include "partials/work_card.html" %}
+      {% endfor %}
+    </ul>
+  </section>
+  {# Righe aperte per vedere anche metriche, dettagli e tesi #}
+  <section class="section" aria-labelledby="experience-title" data-pg-open>
+    <h2 class="section-title" id="experience-title">{{ site.pages.experience.title }}</h2>
+    <ol class="timeline" role="list">
+      {% for exp in site.experiences if exp.id in ["freelance", "mathsport"] %}
+      {% include "partials/experience_entry.html" %}
+      {% endfor %}
+    </ol>
+  </section>
+  <section class="section" aria-labelledby="education-title" data-pg-open>
+    <h2 class="section-title" id="education-title">{{ site.pages.education.title }}</h2>
+    <ol class="timeline" role="list">
+      {% for item in site.education if item.thesis %}
+      {% if loop.first %}{% include "partials/education_entry.html" %}{% endif %}
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+
+<details class="pg-panel" open>
+  <summary>Font</summary>
+  <form class="pg-form" autocomplete="off" lang="it">
+    <label>Titoli <select name="h"></select></label>
+    <label>Testo <select name="b"></select></label>
+    <label>Monospace <select name="m"></select></label>
+    <label>Dimensione testo <output name="s-out"></output>
+      <input type="range" name="s" min="15" max="21" step="0.5">
+    </label>
+    <label>Interlinea <output name="lh-out"></output>
+      <input type="range" name="lh" min="1.3" max="1.9" step="0.05">
+    </label>
+    <label>Peso titoli <output name="hw-out"></output>
+      <input type="range" name="hw" min="300" max="800" step="100">
+    </label>
+    <label class="pg-check"><input type="checkbox" name="t"> Dark mode</label>
+    <div class="pg-actions">
+      <button type="button" data-action="copy">Copia CSS</button>
+      <button type="button" data-action="reset">Reset</button>
+    </div>
+    <p class="pg-status" role="status"></p>
+  </form>
+</details>
+{% endblock %}
