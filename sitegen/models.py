@@ -66,7 +66,6 @@ class Profile(Model):
     location: str
     email: str = Field(pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
     availability: str
-    intro: str
     summary: str
     languages: list[str]
     links: list[Link]

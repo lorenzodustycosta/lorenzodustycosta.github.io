@@ -4,19 +4,18 @@ location: Milan area, Italy
 email: lorenzodusty.costa@gmail.com
 email_subject: Contact from website
 availability: Available for freelance projects in data science
-intro: >
-  10+ years of experience and a master's degree in mathematics.
-  I build end-to-end data solutions, from predictive models to APIs and cloud deployment.
-  <br>
-  Outside data work, I co-run [Selos Design](https://selosdesign.com), an interior design studio with my wife. 
-  It taught me to manage clients, deadlines and a small business end to end.
 summary: >
-  Data Scientist with 10+ years of experience and a strong academic background in mathematics.
-  Started developing mathematical models for lottery and betting at Sisal, then expanded into
-  data science consulting, backend development and cloud infrastructure. Over the past 5 years
-  worked for two football-industry startups on end-to-end data solutions, from predictive
-  modeling to cloud deployment. Interested in sport-tech, energy, healthcare, real estate,
-  tourism and aerospace, with an ambition to apply AI for ethical and sustainable impact.
+  Data scientist with over 10 years of experience and an academic background in mathematics.
+  I started at Sisal, developing mathematical models for lotteries and betting, and later broadened
+  my work to data science consulting, backend development and cloud infrastructure.
+  For 5 years I worked at two football-industry startups on end-to-end data solutions for tactical
+  analysis and scouting, from predictive models to cloud deployment. Since 2025 I have been working
+  as a freelancer on data science projects for clients across different sectors. I'm interested in
+  sport-tech, energy, healthcare, real estate, tourism and aerospace, with the goal of applying AI
+  in an ethical and sustainable way.
+  <br>
+  Outside data work, I co-run [Selos Design](https://selosdesign.com), an interior design studio,
+  with my wife. It taught me to handle clients and deadlines and to run a small business end to end.
 languages: [Italian, English, Turkish]
 # Partita IVA (11 cifre, tra virgolette), mostrata nel footer:
 piva: "14487210966"

@@ -4,19 +4,19 @@ location: Area di Milano, Italia
 email: lorenzodusty.costa@gmail.com
 email_subject: Contatto dal sito web
 availability: Disponibile per progetti freelance di data science
-intro: >
-  Oltre 10 anni di esperienza e laurea magistrale in matematica.
-  Realizzo soluzioni dati end-to-end, dai modelli predittivi alle API fino al deployment in cloud.
-  <br>
-  Oltre al lavoro sui dati, gestisco con mia moglie [Selos Design](https://selosdesign.com), uno studio di interior design. 
-  Mi ha insegnato a gestire clienti, scadenze e una piccola impresa dall'inizio alla fine.
 summary: >
-  Data Scientist con oltre 10 anni di esperienza e una solida formazione accademica in matematica.
-  Ho iniziato sviluppando modelli matematici per lotterie e scommesse in Sisal, per poi ampliare il mio
-  lavoro a consulenza di data science, sviluppo backend e infrastruttura cloud. Negli ultimi 5 anni
-  ho lavorato per due startup del settore calcistico su soluzioni dati end-to-end, dai modelli
-  predittivi al deployment in cloud. Mi interessano sport-tech, energia, sanità, immobiliare,
-  turismo e aerospazio, con l'ambizione di applicare l'AI per un impatto etico e sostenibile.
+  Data scientist con oltre 10 anni di esperienza e una formazione accademica in matematica.
+  Ho iniziato in Sisal, sviluppando modelli matematici per lotterie e scommesse, e ho poi ampliato
+  il mio lavoro alla consulenza di data science, allo sviluppo backend e all'infrastruttura cloud.
+  Per 5 anni ho lavorato in due startup del settore calcistico su soluzioni dati end-to-end per
+  analisi tattiche e scouting, dai modelli predittivi al deployment in cloud. Dal 2025 lavoro come
+  freelance su progetti di data science per clienti di settori diversi. Mi interessano sport-tech,
+  energia, sanità, immobiliare, turismo e aerospazio, con l'obiettivo di applicare l'AI in modo
+  etico e sostenibile.
+  <br>
+  Oltre al lavoro sui dati, gestisco con mia moglie [Selos Design](https://selosdesign.com), uno
+  studio di interior design: un'esperienza che mi ha insegnato a seguire clienti e scadenze e a
+  gestire una piccola attività dall'inizio alla fine.
 languages: [Italiano, Inglese, Turco]
 # Partita IVA (11 cifre, tra virgolette), mostrata nel footer:
 piva: "14487210966"
