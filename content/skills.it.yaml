@@ -29,7 +29,9 @@
     - {id: anomaly-detection, label: Anomaly detection}
     - {id: random-forest, label: Random forest}
     - {id: polars, label: Polars}
-
+    - {id: pytorch, label: PyTorch}
+    - {id: scikit-learn, label: scikit-learn}
+    
 - id: math
   label: Matematica
   skills:

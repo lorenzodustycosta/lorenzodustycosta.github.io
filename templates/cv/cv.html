@@ -1,0 +1,174 @@
+{# CV in PDF (scripts/build_cv.py). Dati preparati da sitegen/cv.py, schema in docs/cv-schema.md.
+
+   Ordine del DOM pensato per gli ATS, che leggono il testo in sequenza:
+   nome e contatti → colonna principale → sidebar → consenso GDPR.
+   La sidebar compare a sinistra solo per effetto del CSS (grid in cv.css).
+   Niente <details>, pulsanti o script: tutto il testo è sempre visibile. #}
+{% set profile = site.profile %}
+{% set labels = cv.settings.labels %}
+{% macro dates(start, end) %}<span class="nowrap">{{ start | month_year }}{% if end and end != start %} – {{ end | month_year }}{% endif %}</span>{% endmacro %}
+{# Un highlight = un bullet; il settore (tag) compare solo nel fallback senza cv_summary #}
+{% macro bullets(items) %}<ul class="cv-bullets">
+  {% for b in items %}<li>{{ b.text | cv_inline }}{% if b.tag %} <span class="cv-meta-inline">{{ b.tag }}</span>{% endif %}</li>
+  {% endfor %}</ul>{% endmacro %}
+{% macro bare_url(value) %}{{ value | string | replace("https://", "") | replace("www.", "") | trim("/") }}{% endmacro %}
+<!doctype html>
+<html lang="{{ lang }}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <title>{{ profile.name }} – CV</title>
+  <meta name="author" content="{{ profile.name }}">
+  <meta name="description" content="{{ profile.headline }}">
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body>
+  <header class="cv-header">
+    <h1>{{ profile.name }}</h1>
+    <p class="cv-headline">{{ profile.headline }}</p>
+    {# Contatti sotto il nome (è il primo testo che un ATS incontra), in due righe con etichetta:
+       recapiti diretti (luogo, email, telefono) e presenza online (sito, LinkedIn, GitHub) #}
+    <dl class="cv-contacts">
+      <dt>{{ labels.contact }}</dt>
+      <dd>
+        <ul role="list">
+          <li>{{ profile.location }}</li>
+          <li><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+          {% if cv.private %}
+          {% for phone in cv.private.phones %}
+          <li class="nowrap">{{ phone }}</li>
+          {% endfor %}
+          {% if cv.private.address %}<li>{{ cv.private.address }}</li>{% endif %}
+          {% endif %}
+        </ul>
+      </dd>
+      <dt>{{ labels.online }}</dt>
+      <dd>
+        <ul role="list">
+          {% if cv.settings.website %}<li><a href="{{ cv.settings.website }}">{{ bare_url(cv.settings.website) }}</a></li>{% endif %}
+          {# un link del profilo uguale al sito di cv.yaml compare una volta sola #}
+          {% for link_item in profile.links if not cv.settings.website or bare_url(link_item.url) != bare_url(cv.settings.website) %}
+          <li><a href="{{ link_item.url }}">{{ bare_url(link_item.url) }}</a></li>
+          {% endfor %}
+        </ul>
+      </dd>
+    </dl>
+    {# Foto dopo nome e contatti: nel testo estratto non cambia nulla; a destra per effetto della grid #}
+    {% if profile.photo %}
+    <img class="cv-photo" src="assets/{{ profile.photo }}" alt="{{ profile.name }}" width="480" height="480">
+    {% endif %}
+  </header>
+
+  <div class="cv-grid">
+    {# Impaginazione: .cv-keep (break-inside: avoid) tiene nella stessa pagina il titolo di sezione,
+       l'intestazione della prima voce e i suoi primi bullet; tra un bullet e l'altro la pagina può
+       cambiare. break-after: avoid sui titoli non basta: Chromium non lo rispetta sempre. #}
+    <main class="cv-main">
+      <section class="cv-section">
+        <div class="cv-keep">
+          <h2>{{ labels.summary }}</h2>
+          <p class="cv-summary">{{ cv.summary | cv_inline }}</p>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        {% for item in cv.experiences %}
+        {% set e = item.experience %}
+        <article class="cv-entry">
+          <div class="cv-keep">
+            {% if loop.first %}<h2>{{ labels.experience }}</h2>{% endif %}
+            <h3>{{ e.role }}{% if e.company %} <span class="cv-org">· {{ e.company }}</span>{% endif %}</h3>
+            <p class="cv-meta">{{ dates(e.start, e.end) }}{% if e.location %} · {{ e.location }}{% endif %}</p>
+            {% if item.head_bullets %}{{ bullets(item.head_bullets) }}{% endif %}
+          </div>
+          {% if item.tail_bullets %}{{ bullets(item.tail_bullets) }}{% endif %}
+        </article>
+        {% endfor %}
+      </section>
+
+      {% set publications = site.publications | selectattr("cv") | list %}
+      {% if publications %}
+      <section class="cv-section">
+        {% for p in publications %}
+        <article class="cv-entry cv-keep">
+          {% if loop.first %}<h2>{{ labels.publications }}</h2>{% endif %}
+          <h3>{{ p.title }}</h3>
+          <p class="cv-meta">{{ p.venue }}{% if p.publisher %} ({{ p.publisher }}){% endif %} · {{ p.published.year }}</p>
+          {% if p.coauthors %}<p class="cv-entry-summary">{{ t.coauthors }} {{ p.coauthors | join(", ") }}</p>{% endif %}
+        </article>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% set projects = site.projects | selectattr("cv") | list %}
+      {% if projects %}
+      <section class="cv-section">
+        {% for p in projects %}
+        <article class="cv-entry cv-keep">
+          {% if loop.first %}<h2>{{ labels.projects }}</h2>{% endif %}
+          <h3>{{ p.title }}{% if p.url %} <span class="cv-org">· <a href="{{ p.url }}">{{ bare_url(p.url) }}</a></span>{% endif %}</h3>
+          <p class="cv-entry-summary">{{ (p.cv_summary or p.summary) | cv_inline }}</p>
+        </article>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+    </main>
+
+    <aside class="cv-side">
+      {% if cv.degrees %}
+      <section class="cv-section">
+        {% for d in cv.degrees %}
+        <div class="cv-side-item">
+          {% if loop.first %}<h2>{{ labels.education }}</h2>{% endif %}
+          <h3>{{ d.title }}</h3>
+          <p>{{ d.institution }}</p>
+          <p class="cv-meta">{{ dates(d.start, d.end) }}{% if d.grade %} · {{ d.grade }}{% endif %}</p>
+          {% if d.cv_summary %}<p class="cv-side-note">{{ d.cv_summary | cv_inline }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {# Solo le categorie con almeno una skill in cv.yaml (sitegen/cv.py, _skill_groups) #}
+      {% if cv.skill_groups %}
+      <section class="cv-section">
+        {% for label, skills in cv.skill_groups %}
+        <div class="cv-side-item">
+          {% if loop.first %}<h2>{{ labels.skills }}</h2>{% endif %}
+          <h3>{{ label }}</h3>
+          <p>{{ skills | map(attribute="label") | join(", ") }}</p>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% if cv.certificates %}
+      <section class="cv-section">
+        {% for c in cv.certificates %}
+        <div class="cv-side-item">
+          {% if loop.first %}<h2>{{ labels.certificates }}</h2>{% endif %}
+          <h3>{{ c.title }}</h3>
+          <p>{{ c.institution }}</p>
+          <p class="cv-meta">{{ dates(c.start, c.end) }}</p>
+          {% if c.cv_summary %}<p class="cv-side-note">{{ c.cv_summary | cv_inline }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      <section class="cv-section cv-keep">
+        <h2>{{ labels.languages }}</h2>
+        <ul class="cv-list" role="list">
+          {% for name, level in cv.languages %}
+          <li>{{ name }}{% if level %} <span class="cv-meta-inline">{{ level }}</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="cv-gdpr">
+    <p>{{ cv.settings.gdpr }}</p>
+  </footer>
+</body>
+</html>

@@ -34,6 +34,10 @@ highlights:
       - Modeled different market formats and auction types for the day-ahead market, at hourly and quarter-hour resolution
       - Performance similar to two commercial production forecast providers (nMAE ~10% of installed capacity on quarter-hour P50 forecasts) and in line with industry standards, despite a short and seasonally biased test period (summer)
       - Handed the PoC over to the client's internal team
+    cv_summary: >-
+      End-to-end PoC on GCP for 5 wind farms: data ingestion, feature engineering, quantile
+      XGBoost models with conformal calibration (CQR). nMAE ~10% of installed capacity on P50,
+      on par with two commercial providers.
   - text: Optimized KPI computation pipelines
     skills: [python, polars]
     tag: sport-tech
@@ -49,6 +53,9 @@ highlights:
       - Developed, together with the client's team, a framework that reprocesses a full match in a few seconds
       - Used batch and parallel processing
       - Optimized the pass-related KPIs
+    cv_summary: >-
+      With the client's team, built a new Python/Polars framework for post-match KPIs:
+      reprocessing a full match went from over 90 minutes to a few seconds (-99%).
   - text: Refactored several microservices to integrate a new data provider
     skills: [java, python, postgresql]
     tag: sport-tech
@@ -64,5 +71,8 @@ highlights:
       - Rebuilt the objects saved to the database
       - Revised the PostgreSQL tables to distinguish between providers
       - Adapted the Python components that read the PostgreSQL tables
+    cv_summary: >-
+      Refactored Java and Python microservices and the PostgreSQL schema
+      to switch to a new data provider, keeping compatibility with the previous one.
 featured: true
 ---

@@ -161,7 +161,8 @@ def test_analytics_only_in_production(tmp_path, monkeypatch, dev):
 
 def test_home_has_no_about_or_meta_line(dist):
     home = (dist / "en" / "index.html").read_text(encoding="utf-8")
-    assert "<img" not in home.split('<section class="section"')[0]  # senza photo in profile.yaml, nessuna foto
+    hero = home.split('<section class="section"')[0]
+    assert hero.count("<img") == 1 and 'class="hero-photo"' in hero  # photo in profile.yaml
     assert "Available for freelance projects" not in home
     assert 'id="about-title"' not in home  # l'intro dell'hero basta
     assert "ruler" not in home and "ruled" not in home
@@ -319,7 +320,7 @@ def test_complete_translation_builds_without_warnings(tmp_path, capsys):
 
 
 def test_fonts_are_self_hosted(dist):
-    css = (dist / "css" / "main.css").read_text(encoding="utf-8")
+    css = (dist / "css" / "tokens.css").read_text(encoding="utf-8")
     fonts = re.findall(r'url\("\.\./fonts/([^"]+)"\)', css)
     assert fonts
     for name in fonts:

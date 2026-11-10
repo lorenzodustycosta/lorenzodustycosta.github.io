@@ -1,6 +1,6 @@
 name: Lorenzo Dusty Costa
 headline: Freelance Data Scientist
-location: Milan area, Italy
+location: Milan and remote
 email: lorenzodusty.costa@gmail.com
 email_subject: Contact from website
 availability: Available for freelance projects in data science
@@ -25,9 +25,9 @@ links:
   - label: GitHub
     url: https://github.com/lorenzodustycosta
 # Da attivare quando i file sono in static/ (la build verifica che esistano):
-# cv: cv/Lorenzo_Dusty_Costa_CV.pdf
+cv: build/cv/cv-en.pdf
 image: img/og-image-en.png   # anteprima social in inglese, 1200x630 px (scripts/social_images.py)
-# photo: img/lorenzo.webp   # foto profilo nella home: quadrata, 480x480 px, < 50 KB
+photo: img/lorenzo.webp   # foto profilo nella home e nel CV: quadrata, 480x480 px, < 50 KB
 # Cloudflare Web Analytics (dashboard Cloudflare → Web Analytics → Add a site → snippet JS).
 # Il token è pubblico. Lo script viene incluso solo nella build di produzione, non con --serve.
 analytics_token: 9c394cc7fc454571b7767fc2af293506

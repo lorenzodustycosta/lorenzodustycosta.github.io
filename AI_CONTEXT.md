@@ -58,7 +58,6 @@ Generatore di sito statico **scritto in Python**, su misura:
 | Server locale | `python build.py --serve`: build + `http.server` + rebuild automatico al salvataggio (`watchfiles`) |
 | CSS | CSS puro con variabili (design token), un solo file principale. Niente preprocessori |
 | JavaScript | Vanilla ES modules, nessun bundler, caricato con `<script type="module" defer>` |
-| Grafici (Fase 2, opz.) | Observable Plot o D3 da CDN, solo nelle pagine che li usano |
 | Test | pytest |
 | Gestione dipendenze | `requirements.txt` + venv (deciso) |
 | Deploy | GitHub Actions: `python build.py` → `actions/upload-pages-artifact` → `actions/deploy-pages` |
@@ -90,6 +89,8 @@ La lettura e validazione dei contenuti è in un **modulo Python riusabile** (`si
 │   ├─ profile.yaml           # nome, headline, contatti pubblici, link
 │   ├─ skills.yaml            # tassonomia skill (id, label, categoria)
 │   ├─ services.yaml
+│   ├─ i18n.yaml              # stringhe di interfaccia, una sezione per lingua
+│   │                         # traduzioni: file paralleli *.it.md / *.it.yaml
 │   ├─ experiences/           # un .md per esperienza (frontmatter + corpo = dettaglio lungo)
 │   ├─ education/
 │   ├─ projects/
@@ -99,6 +100,7 @@ La lettura e validazione dei contenuti è in un **modulo Python riusabile** (`si
 │   ├─ models.py              # modelli pydantic (Experience, Skill, Project, ...)
 │   ├─ content.py             # load_all() → oggetti validati; riusato dal backend
 │   ├─ render.py              # Jinja2 + Markdown → HTML
+│   ├─ images.py              # dimensioni di WebP/PNG per width/height degli <img>
 │   └─ seo.py                 # sitemap.xml, robots.txt, meta tag
 ├─ templates/
 │   ├─ base.html
@@ -106,7 +108,8 @@ La lettura e validazione dei contenuti è in un **modulo Python riusabile** (`si
 │   └─ pages/                 # index.html, experience.html, projects.html, ...
 ├─ static/
 │   ├─ css/main.css
-│   ├─ js/                    # experiences.js, filters.js, theme.js
+│   ├─ fonts/                 # woff2 self-hosted + licenze OFL
+│   ├─ js/                    # theme.js
 │   ├─ img/
 │   └─ cv/Lorenzo_Dusty_Costa_CV.pdf
 ├─ tests/
@@ -124,18 +127,26 @@ company: Math&Sport
 start: 2020-01
 end: 2023-10            # oppure "present"
 location: Milan, Italy
-sector: sport-tech      # sport-tech | gaming | telco | retail | energy | consulting
+sectors: [sport-tech]   # lista di: sport-tech | gaming | telco | retail | energy | consulting
 type: employee          # employee | freelance
 summary: >
   Riassunto breve, 1–2 righe, coerente col CV.
-highlights:             # bullet del CV (versione compatta)
-  - ...
+highlights:
+  - text: ...           # bullet del CV (versione compatta), sempre visibile
+    tag: sport-tech     # opzionale
+    context: ...        # opzionale, visibile all'espansione
+    details: [...]      # opzionale, visibile all'espansione
+    skills: [...]       # opzionale, per esperienze con progetti diversi
+    metrics:            # numeri chiave, opzionali, sempre visibili sotto il punto
+      - label: Weekend ops workload
+        value: "-50%"
 skills: [python, aws, docker, kubernetes, api-design, devops]
-metrics:                # numeri chiave, opzionali
-  - label: Weekend ops workload
-    value: "-50%"
-featured: true          # candidato a case study
-order: 3
+featured: true          # oggi non usato (era per le pagine case study della Fase 2, eliminata); in home vanno gli highlight con featured: true
+# opzionali (anche nei progetti): immagine reale del lavoro ed etichetta di stato
+image: img/projects/wind.webp   # WebP o PNG in static/; la build ne legge le dimensioni
+image_alt: ...                  # obbligatorio se c'è image
+image_caption: Illustrative data
+status: Client project
 ---
 
 Corpo Markdown = **dettaglio lungo** mostrato all'espansione:
@@ -180,19 +191,19 @@ cliente. Quando prendi una decisione di design significativa, proponi la riga da
 Obiettivo: sito presentabile e linkabile da LinkedIn.
 
 **Task**
-- [ ] Modelli pydantic e loader in `sitegen/` per tutte le collection
-- [ ] Popolare `content/` con i dati dell'**Appendice A** (lingua dei contenuti: inglese)
-- [ ] Test pytest: tutti i contenuti si caricano e validano; un file volutamente errato fa fallire la validazione
-- [ ] Template base: header con navigazione, footer, dark/light mode (rispetta `prefers-color-scheme` + toggle in `theme.js`)
-- [ ] **Home**: headline, 2–3 righe di presentazione, servizi freelance, call to action contatti
-- [ ] **Experience**: timeline compatta generata dai contenuti (ordine cronologico inverso)
-- [ ] **Education**: lauree, summer school, certificati
-- [ ] **Projects & Publications**
-- [ ] **Contact**: email, LinkedIn, GitHub. **Niente numeri di telefono.** Modulo opzionale via servizio gratuito (es. Formspree) `[DA DECIDERE]`
+- [x] Modelli pydantic e loader in `sitegen/` per tutte le collection
+- [x] Popolare `content/` con i dati dell'**Appendice A** (lingua dei contenuti: inglese)
+- [x] Test pytest: tutti i contenuti si caricano e validano; un file volutamente errato fa fallire la validazione
+- [x] Template base: header con navigazione, footer, dark/light mode (scuro di default, indipendente da `prefers-color-scheme`; il chiaro si sceglie col toggle in `theme.js` e resta in localStorage)
+- [x] **Home**: headline, 2–3 righe di presentazione, servizi freelance, call to action contatti
+- [x] **Experience**: timeline compatta generata dai contenuti (ordine cronologico inverso)
+- [x] **Education**: lauree, summer school, certificati
+- [x] **Projects & Publications**
+- [x] **Contact**: email, LinkedIn, GitHub. **Niente numeri di telefono.** Niente modulo: solo email (deciso)
 - [ ] CV scaricabile in PDF
-- [ ] Rimuovere il `noindex` del placeholder da `base.html`
-- [ ] SEO (`seo.py`): `<title>`, meta description, Open Graph e Twitter card (immagine di anteprima), `sitemap.xml`, `robots.txt`
-- [ ] Pagina 404 (`404.html`, supportata nativamente da GitHub Pages)
+- [x] Rimuovere il `noindex` del placeholder da `base.html`
+- [x] SEO (`seo.py`): `<title>`, meta description, Open Graph e Twitter card (immagine di anteprima), `sitemap.xml`, `robots.txt`
+- [x] Pagina 404 (`404.html`, supportata nativamente da GitHub Pages)
 
 **Criteri di accettazione**
 - Responsive verificato a 360px, 768px, 1280px; nessuno scroll orizzontale
@@ -203,39 +214,18 @@ Obiettivo: sito presentabile e linkabile da LinkedIn.
 
 ---
 
-### Fase 2 – Interattività sulle esperienze
+### Fase 2 – Interattività sulle esperienze (eliminata)
 
-**Vincolo importante:** l'hover non esiste su touch. L'interazione principale è **click/tap**; l'hover è solo un miglioramento progressivo su desktop.
-
-**Approccio:** progressive enhancement. L'HTML generato da Python deve funzionare **senza JavaScript**; il JS aggiunge solo comodità.
-
-**Task**
-- [ ] **Card espandibili**: basate su `<details>/<summary>` (funzionano senza JS). Stato chiuso = summary + highlights; stato aperto = corpo Markdown completo
-  - Desktop: hover evidenzia la card (solo CSS)
-  - Accessibile da tastiera; animazioni disattivate con `prefers-reduced-motion`
-- [ ] **Filtro per skill e settore** (`filters.js`): chip cliccabili; le esperienze non pertinenti si attenuano (non spariscono). Stato del filtro nell'URL (`?skill=python`) per poterlo condividere
-  - Python scrive le skill di ogni card come attributo `data-skills="python aws docker"`, così il JS si limita a leggere attributi e cambiare classi CSS
-- [ ] **Pagine case study** per le esperienze `featured: true` (`/projects/<id>/`), generate da Python
-- [ ] *(Opzionale)* Visualizzazione skill ↔ esperienze (heatmap o network): Python esporta i dati in un JSON statico, la pagina lo disegna con Observable Plot/D3 da CDN
-
-**Case study suggeriti**: wind power forecasting probabilistico; ottimizzazione Polars (−99% tempo); motore matematico SuperEnalotto; API real-time Coppa Italia/Supercoppa.
-
-**Criteri di accettazione**
-- Contenuti leggibili anche con JS disabilitato
-- Tutto utilizzabile da touch e da tastiera
-- Nessun peggioramento di Lighthouse rispetto alla Fase 1
-- JS scritto a mano < 200 righe totali, commentato
-
-**Nota contenuti:** nei dettagli lunghi descrivere l'approccio, mai dati o informazioni riservate dei clienti.
+Tolta dal piano su decisione del proprietario (2026-11-07): niente filtri per skill, niente pagine case study, niente visualizzazione skill ↔ esperienze. I blocchi apribili delle esperienze restano come sono.
 
 ---
 
 ### Fase 3 – Rifiniture (trasversale, si può fare a pezzi)
 
-- [ ] **i18n IT/EN**: `/` in inglese, `/it/` in italiano. Contenuti tradotti come file paralleli (es. `mathsport.en.md`, `mathsport.it.md`) o campi per lingua nel frontmatter `[DA DECIDERE]`; stringhe di interfaccia in `content/i18n.yaml`. Il loader deve supportarlo, quindi va previsto già nei modelli della Fase 1
-- [ ] **Analytics senza cookie** (es. GoatCounter) `[DA DECIDERE]`
-- [ ] Audit accessibilità (contrasti, alt text, focus visibile)
-- [ ] Controllo link rotti in CI
+- [x] **i18n IT/EN** (anticipato su richiesta del design brief): `/` in italiano (lingua del sito), `/en/` in inglese; i file base restano in inglese. File paralleli con suffisso (`mathsport.md` EN, `mathsport.it.md` IT; `services.yaml` / `services.it.yaml`), fallback sull'inglese con warning in build; stringhe di interfaccia in `content/i18n.yaml`. `hreflang`, `lang`, `og:locale` e sitemap con entrambe le lingue. I testi italiani (tradotti con Claude e rivisti dal proprietario) sono completi; un test verifica che non manchino traduzioni
+- [x] **Analytics senza cookie**: deciso Cloudflare Web Analytics (snippet JS, senza proxy), token pubblico in `profile.yaml` (`analytics_token`), script con `defer` solo nella build di produzione. Lighthouse invariato su Performance (100). Da attivare inserendo il token
+- [x] Audit accessibilità (contrasti, alt text, focus visibile): axe-core 4.10 (WCAG 2.1 AA + best practice) su tutte le pagine, tema chiaro e scuro, 0 violazioni (2026-11-05). Contrasto testo ≥ 6.4:1 in entrambi i temi. Lighthouse 12.6 (mobile, server locale): Performance 99–100, Accessibility 100, Best Practices 96, SEO 100 su tutte le pagine; desktop home 100. Il 96 dipende dallo script di Cloudflare, che in locale non può inviare dati (errore CORS in console)
+- [x] Controllo link rotti in CI: test `test_internal_links_and_anchors_exist` (link, risorse e #ancore interne sul sito generato); i link esterni non vengono controllati
 - [ ] *(Opzionale)* Sezione blog/note tecniche come nuova collection
 
 ---
@@ -279,7 +269,7 @@ Sito (GitHub Pages) ──fetch──▶ API FastAPI (free tier) ──▶ LLM A
 ## 6. Linee guida di design
 
 - Stile pulito, professionale, con un tocco "data": tipografia leggibile, molto spazio bianco, un colore d'accento
-- Coerenza con il CV attuale (blu/indaco come accento) `[DA DECIDERE]`
+- Accento verde bosco (deciso, vedi DECISIONS.md); tema scuro di default
 - Mobile first
 - Niente stock photo; solo foto profilo ed eventuali grafici reali
 - Ogni pagina deve rispondere in 5 secondi a: *chi è, cosa fa, come contattarlo*
@@ -295,7 +285,7 @@ Usare come fonte per popolare `content/`. I testi lunghi dei dettagli li scriver
 - **Headline**: Freelance Data Scientist & Backend Developer
 - **Sede**: Milan area, Italy
 - **Email**: lorenzodusty.costa@gmail.com
-- **Link**: LinkedIn, GitHub `[DA DECIDERE: URL]`
+- **Link**: LinkedIn https://www.linkedin.com/in/lorenzodcosta, GitHub https://github.com/lorenzodustycosta
 - **Summary**: Data Scientist with 10+ years of experience and a strong academic background in mathematics. Started developing mathematical models for lottery and betting at Sisal, then expanded into data science consulting, backend development and cloud infrastructure. Over the past 5 years worked for two football-industry startups on end-to-end data solutions, from predictive modeling to cloud deployment. Interested in sport-tech, energy, healthcare, real estate, tourism and aerospace, with an ambition to apply AI for ethical and sustainable impact.
 - **Lingue**: Italian, English, Turkish
 
@@ -359,8 +349,30 @@ Usare come fonte per popolare `content/`. I testi lunghi dei dettagli li scriver
 
 | Fase | Stato | Note |
 |---|---|---|
-| 0 – Setup | ✅ completata | Online su https://lorenzodustycosta.github.io (placeholder con `noindex`). Il primo deploy ha richiesto un re-run manuale perché Pages non era ancora attivo |
-| 1 – Sito statico | ⬜ | |
-| 2 – Interattività | ⬜ | |
-| 3 – Rifiniture | ⬜ | |
+| 0 – Setup | ✅ completata | Online su https://lorenzodustycosta.github.io (placeholder con `noindex`). Deploy automatico al push verificato |
+| 1 – Sito statico | 🟡 in verifica | Pagine, contenuti, SEO e test pronti. Mancano: PDF del CV (in revisione dal proprietario), test anteprima LinkedIn. Lighthouse fatto (≥ 96 ovunque). Immagine di anteprima social fatta (`scripts/social_images.py`). Testi dei servizi da rivedere |
+| 2 – Interattività | ❌ eliminata | Decisione del proprietario (2026-11-07) |
+| 3 – Rifiniture | 🟡 in corso | i18n (infrastruttura e testi IT, italiano lingua del sito), analytics, audit accessibilità e controllo link fatti |
 | 4 – Chatbot | ⬜ | |
+
+## Revisione visiva — novembre 2026
+
+- Step 1 (audit) completato; Step 2 propone Paper, Quaderno e Campo. Direzione di produzione ancora da scegliere.
+- Step 3: `/_dev/fonts.html` confronta sei direzioni in una pagina, riutilizzando i partial reali con ID prefissati. CSS e JS restano in `dev/`, copiati solo con `dev=True` (`--serve`); nessun cambiamento a `content/` o al tema pubblico.
+- Ogni esempio ha font propri; il pannello può applicare una terna comune. Parametri URL: `h`, `b`, `m`, `s`, `lh`, `hw`, `t`, `custom`. Senza combinazione comune, “Copia CSS” esporta la direzione al centro della finestra (o la prima).
+- Gli esempi precedenti restano disponibili; il punto di ingresso per il confronto è ora il playground unico. Step 4 sospeso in attesa della scelta del proprietario.
+- Su richiesta di maggiore fantasia sono state aggiunte, prima delle tre precedenti, Atlante dei modelli, Osservatorio dei segnali e Flussi computazionali. `templates/_dev/data_maps.html` ricava grafi settore–esperienza, intervalli temporali e relazioni linguaggio–esperienza dai dati esistenti; gli SVG hanno liste HTML equivalenti per mobile e accessibilità. Gli stili sono isolati in `dev/directions-experimental.css`; nessuna libreria o dipendenza nuova.
+- Nuovo design brief (`desing_brief.md`, direzione "quaderno tecnico"). Step 1: il font playground esistente copre già §6. Step 2: prototipo della sola home in `/_dev/quaderno.html` (template in `templates/_dev/quaderno*`, CSS/JS in `dev/quaderno.*`), con tre accenti da scegliere (`?accent=forest|petrol|rust`). Produzione invariata; Step 3 (estensione a tutte le pagine, campi image/status, bilingue) in attesa dell'approvazione del proprietario.
+- Step 3 completato (direzione approvata, accento verde bosco, sezioni senza numeri): stile esteso a tutte le pagine in `static/css/main.css`, font self-hosted in `static/fonts/`, campi opzionali `image`/`image_alt`/`image_caption`/`status` su esperienze e progetti, sito bilingue (`/`, `/it/`) con fallback e warning. Il playground (`/_dev/fonts.html`) ora mostra la home reale con il CSS di produzione. Rimossi i campioni delle direzioni precedenti, il prototipo e i partial `experience_card`/`education_item`. Da fare: immagini dei progetti, verifica Lighthouse.
+- Feedback dopo lo Step 3: sito troppo "piatto". Prototipo in `/_dev/proto-home.html` e `/_dev/proto-experience.html` (CSS in `dev/proto.css`): fasce alternate, titoli più forti, About e Toolbox affiancati, grafico della carriera (`sitegen/charts.py` + `partials/career_chart.html`, HTML/CSS senza JS), fan chart sintetico (`scripts/wind_fanchart.py` → `static/img/projects/wind-fanchart.svg`, SVG ora supportato da `images.py`). Escluso su richiesta: numero chiave nelle card in evidenza. In attesa di approvazione prima di portarlo in produzione.
+- Revisione della home dopo il feedback (tenuti colori, font, blocchi apribili, metriche prima della descrizione): sezioni Services, How I work, Selected work, Experience, Toolbox con lo stesso titolo verde; Selected work = highlight con `featured: true` (wind, Polars, API Coppa Italia, SuperEnalotto) con spazio per l'immagine; aggiunte metriche nMAE ~10%, finali 2020 · 2021, 2 tesi · 1 articolo. Fan chart sintetico applicato solo in sviluppo (`dev_demo_site`): per pubblicarlo va aggiunto `image` all'highlight in `freelance.md`. Applicato direttamente ai template di produzione (nulla è pubblicato finché non si fa push). In attesa di feedback.
+- Titoli brevi sugli highlight (`title`), Selected work ridotto a wind e Coppa Italia, foto profilo attiva (`static/img/lorenzo.webp`, 480x480, ritagliata dall'originale in `media-src/`, che è in `.gitignore`), anche nell'intestazione del CV, rimosse le note end_to_end ed engagement_note dai servizi.
+
+## CV in PDF — novembre 2026
+
+- Generato dagli stessi contenuti con `scripts/build_cv.py` (Playwright + Chromium headless, `pypdf` per i controlli). Le dipendenze sono in `requirements-cv.txt`, separate dal sito. Dati e fallback in `sitegen/cv.py` (testabile senza browser), template `templates/cv/cv.html`, stile `static/css/cv.css`.
+- Font e design token spostati da `main.css` a `static/css/tokens.css` (collegato da `base.html` prima di `main.css`, importato da `cv.css`), così il CV non duplica i valori.
+- Campi opzionali: `cv` sulle esperienze e `cv`/`cv_title`/`cv_summary` dentro ogni highlight (un highlight = un bullet, solo il `cv_summary`, senza limite di numero; tolti `cv_highlights`, `cv_activities` e il `cv_summary` dell'esperienza); `cv`/`cv_summary` su education e progetti; `cv` su pubblicazioni. Impostazioni in `content/cv.yaml` + `cv.it.yaml`. Schema in `docs/cv-schema.md`.
+- Varianti: `public` (email, LinkedIn, GitHub) e `full` (telefono da `content/private.yaml`, in `.gitignore`, escluso dalle traduzioni mancanti).
+- **Non ancora integrato col sito** (decisione del proprietario): niente generazione in CI, niente link "Scarica CV" verso i PDF generati. I testi CV (`cv_summary` degli highlight, `summary`, `skills`) li scrive il proprietario.
+- Impaginazione con wrapper `.cv-keep` (`break-inside: avoid`): titolo di sezione + intestazione del ruolo + primi due bullet; i bullet non si spezzano. `text-rendering: geometricPrecision` evita le parole incollate nel testo estratto. Limite noto: l'estrazione del testo è per pagina, quindi la sidebar di pagina 1 si legge prima delle voci di pagina 2.

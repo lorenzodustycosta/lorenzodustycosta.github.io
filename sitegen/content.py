@@ -43,6 +43,8 @@ LANGUAGES = ("it", "en")
 
 # Stringhe di interfaccia: un file solo, con una sezione per lingua
 I18N_FILE = "i18n.yaml"
+# Contatti privati per la variante "full" del CV: in .gitignore, mai pubblicati né tradotti
+PRIVATE_FILE = "private.yaml"
 
 
 class ContentError(Exception):
@@ -90,7 +92,7 @@ def _translated(path: Path, lang: str) -> Path:
 
 def _base_files(content_dir: Path) -> list[Path]:
     """Tutti i file di contenuto in inglese (esclusi i tradotti e le stringhe di interfaccia)."""
-    files = [p for p in content_dir.glob("*.yaml") if p.name != I18N_FILE]
+    files = [p for p in content_dir.glob("*.yaml") if p.name not in (I18N_FILE, PRIVATE_FILE)]
     files += content_dir.glob("*/*.md")
     return sorted(p for p in files if not _is_translation(p))
 

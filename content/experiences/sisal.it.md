@@ -16,6 +16,9 @@ highlights:
       - "Tennis: modello interno di backup che ricava le quote dei risultati esatti dalle quote testa a testa, tramite una catena di Markov con parametri stimati su dati storici, distinti per incontri maschili e femminili e per i formati al meglio dei 3 e dei 5 set"
       - Adattamento del modello tennis al volley
       - Sviluppo di modelli Poisson per l'hockey
+    cv_summary: >-
+      Modelli per le quote delle scommesse sportive: catene di Markov per il tennis,
+      adattate al volley, e modelli di Poisson per hockey e calcio.
   - text: Progettazione della matematica di giochi a estrazione per il mercato italiano e internazionale
     details:
       - "Giochi: SuperEnalotto, Eurojackpot, SiVinceTutto, VinciCasa"
@@ -26,6 +29,10 @@ highlights:
     metrics:
       - label: Jackpot del SuperEnalotto nella top 10 vinti con la formula 2016
         value: 6 su 10
+    cv_summary: >-
+      Matematica di SuperEnalotto, Eurojackpot, SiVinceTutto e VinciCasa: strutture dei
+      premi, probabilità, simulazioni Monte Carlo e analisi di rischio (MATLAB, R). Con la
+      formula SuperEnalotto 2016 sono stati vinti 6 dei 10 jackpot più alti della storia.
 skills: [probability, combinatorics, monte-carlo, markov-chains, matlab, r, vba, web-scraping]
 featured: true
 ---

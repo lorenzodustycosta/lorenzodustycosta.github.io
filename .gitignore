@@ -5,3 +5,13 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .env
+
+# CV in PDF (scripts/build_cv.py): output generati
+build/
+# Variante "full" del CV: contiene il telefono, mai nel repository
+content/private.yaml
+*-full.pdf
+*-full.html
+
+# Originali delle immagini (foto ad alta risoluzione, con EXIF): non si pubblicano
+media-src/

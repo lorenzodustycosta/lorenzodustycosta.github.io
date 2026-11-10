@@ -16,6 +16,9 @@ highlights:
       - "Tennis: internal backup model that derives the odds of exact scores from match-winner odds, using a Markov chain with parameters estimated from historical data, separate for men's and women's matches and for best-of-3 and best-of-5 formats"
       - Adapted the tennis model to volleyball
       - Developed Poisson models for hockey
+    cv_summary: >-
+      Odds models for sports betting: Markov chains for tennis, adapted to volleyball, and
+      Poisson models for hockey and football.
   - text: Designed the mathematics of lottery games for Italian and international markets
     details:
       - "Games: SuperEnalotto, Eurojackpot, SiVinceTutto, VinciCasa"
@@ -26,6 +29,10 @@ highlights:
     metrics:
       - label: Top-10 SuperEnalotto jackpots won under the 2016 formula
         value: 6 of 10
+    cv_summary: >-
+      Mathematics of SuperEnalotto, Eurojackpot, SiVinceTutto and VinciCasa: prize structures,
+      probabilities, Monte Carlo simulations and risk analysis (MATLAB, R). The 2016
+      SuperEnalotto formula produced 6 of the 10 largest jackpots in the game's history.
 skills: [probability, combinatorics, monte-carlo, markov-chains, matlab, r, vba, web-scraping]
 featured: true
 ---

@@ -134,6 +134,10 @@ class Highlight(Media):
     skills: list[str] = []  # per le esperienze con progetti diversi
     context: str | None = None
     details: list[str] = []
+    # CV in PDF (docs/cv-schema.md): ogni highlight è un bullet del CV
+    cv: bool = True  # False: highlight escluso dal CV
+    cv_title: str | None = None  # solo nel fallback senza cv_summary (default: title, altrimenti text)
+    cv_summary: str | None = None  # il bullet del CV; da solo, senza titolo, tag né metriche
 
 
 class Experience(Media):
@@ -150,6 +154,8 @@ class Experience(Media):
     skills: list[str] = []
     featured: bool = False
     body: str = ""  # dettaglio lungo in Markdown (corpo del file)
+    # CV in PDF (docs/cv-schema.md): i bullet vengono da highlights[].cv_summary
+    cv: bool = True  # False: esclusa dal CV
 
     @property
     def all_skills(self) -> list[str]:
@@ -190,6 +196,8 @@ class Education(Model):
     project: EducationProject | None = None
     skills: list[str] = []
     body: str = ""
+    cv: bool = True  # CV in PDF: False la esclude
+    cv_summary: str | None = None  # riga sotto il titolo nel CV (default: solo il voto)
 
     @model_validator(mode="after")
     def check_dates(self):
@@ -205,6 +213,8 @@ class Project(Media):
     url: HttpUrl | None = None
     skills: list[str] = []
     body: str = ""
+    cv: bool = True  # CV in PDF: False lo esclude
+    cv_summary: str | None = None  # default: summary
 
 
 class Publication(Model):
@@ -216,6 +226,7 @@ class Publication(Model):
     coauthors: list[str] = []
     url: HttpUrl | None = None
     body: str = ""
+    cv: bool = True  # CV in PDF: False la esclude
 
 
 class UiStrings(Model):
@@ -322,3 +333,45 @@ class SiteContent(Model):
                 if work.link not in known:
                     raise ValueError(f"service {service.id}: unknown link {work.link!r}")
         return self
+
+
+# ---- CV in PDF (content/cv.yaml, content/private.yaml) — vedi docs/cv-schema.md ----
+
+
+class CvLabels(Model):
+    """Titoli delle sezioni del CV, nella lingua del file."""
+
+    contact: str  # intestazione, riga di luogo, email e telefono
+    online: str  # intestazione, riga di sito e profili
+    summary: str
+    experience: str
+    publications: str
+    projects: str
+    certificates: str
+    education: str
+    skills: str
+    languages: str
+
+
+class CvLanguage(Model):
+    name: str
+    level: str | None = None  # es. "C1", "madrelingua"
+
+
+class CvSettings(Model):
+    """Impostazioni del CV per una lingua (cv.yaml, cv.it.yaml)."""
+
+    summary: str | None = None  # default: profile.summary (con warning)
+    website: HttpUrl | None = None  # sito personale nell'intestazione, nella lingua del CV
+    skills: list[str] = []  # id da skills.yaml, raggruppati per categoria; vuoto = skill della Toolbox
+    languages: list[CvLanguage] = []  # vuoto = profile.languages, senza livello
+    gdpr: str  # riga finale con il consenso al trattamento dei dati
+    max_pages: int = Field(default=2, ge=1)
+    labels: CvLabels
+
+
+class PrivateContacts(Model):
+    """Contatti solo per la variante "full" del CV: content/private.yaml, MAI nel repository."""
+
+    phones: list[str] = Field(min_length=1)
+    address: str | None = None

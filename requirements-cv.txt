@@ -1,0 +1,5 @@
+# Solo per il CV in PDF (scripts/build_cv.py): il sito non ne ha bisogno.
+#   pip install -r requirements-cv.txt
+#   playwright install chromium
+playwright>=1.42   # Chromium headless: HTML → PDF con lo stesso motore del browser (tagged PDF dalla 1.42)
+pypdf>=4.0         # conta le pagine e verifica font incorporati e testo selezionabile

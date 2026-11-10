@@ -11,7 +11,7 @@ summary: >-
 highlights:
   - text: Sviluppo di una pipeline end-to-end di forecasting probabilistica per la produzione eolica
     featured: true
-    title: Forecasting probabilistico per il day-ahead della produzione eolica
+    title: Forecasting probabilistico day-ahead della produzione eolica
     image: img/projects/wind-forecast.webp
     image_alt: "Grafico di una serie temporale su tre giorni della produzione eolica come quota della capacità installata: la previsione day-ahead del modello con la sua banda P10–P90, confrontata con la produzione effettiva"
     image_caption: Previsione per il day-ahead con banda P10–P90 vs. produzione effettiva, risoluzione oraria
@@ -34,6 +34,10 @@ highlights:
       - Modellazione di diversi formati di mercato e tipi di asta per il mercato day-ahead, a risoluzione oraria e al quarto d'ora
       - Prestazioni simili a quelle di due provider commerciali di previsioni di produzione (nMAE ~10% della capacità installata sulle previsioni P50 al quarto d'ora) e in linea con gli standard di settore, pur con un periodo di test breve e stagionalmente sbilanciato (estate)
       - Consegna della PoC al team interno del cliente
+    cv_summary: >-
+        PoC end-to-end su GCP per 5 impianti eolici: ingestione dati, feature engineering,
+        modelli XGBoost a quantili con calibrazione conformal (CQR). nMAE ~10% della capacità
+        installata sul P50, in linea con due provider commerciali.
   - text: Ottimizzazione delle pipeline di calcolo dei KPI
     skills: [python, polars]
     tag: sport-tech
@@ -46,7 +50,11 @@ highlights:
       - Sviluppo, insieme al team del cliente, di un framework che rielabora un'intera partita in pochi secondi
       - Uso di elaborazione batch e parallela
       - Ottimizzazione dei KPI relativi ai passaggi
-  - text: Refactoring di alcuni microservizi per integrare un nuovo data provider.
+    cv_summary: >-
+      Con il team del cliente, nuovo framework Python/Polars per il calcolo dei KPI
+      post-partita: tempo di rielaborazione di una partita da oltre 90 minuti a pochi
+      secondi (-99%).
+  - text: Refactoring di alcuni microservizi per integrare un nuovo data provider
     skills: [java, python, postgresql]
     tag: sport-tech
     context: >-
@@ -58,5 +66,7 @@ highlights:
       - Ricostruzione degli oggetti da salvare a DB
       - Revisione delle tabelle PostgreSQL per distinguere i provider
       - Adattamento dei componenti Python che leggono le tabelle PostgreSQL
+    cv_summary: >-
+      Refactoring di microservizi Java e Python e dello schema PostgreSQL per il passaggio a un nuovo data provider, mantenendo la compatibilità con il precedente.
 featured: true
 ---

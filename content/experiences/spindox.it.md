@@ -18,6 +18,10 @@ highlights:
       - Applicazione del sistema alle serie temporali di una decina di metriche dei componenti hardware dei server del cliente
       - Rilascio come servizio Python integrato con una dashboard di monitoraggio
       - Chiamate a R da Python per le funzioni disponibili solo in R, come l'individuazione dei break-point
+    cv_summary: >-
+      Anomaly detection su serie temporali di metriche hardware dei server di un cliente
+      Telco (Seasonal Hybrid ESD, Python e R), rilasciata come servizio integrato in una
+      dashboard di monitoraggio.
   - text: Piattaforma di smart booking in ambito retail per ridurre i no-show
     tag: retail
     metrics:
@@ -27,5 +31,8 @@ highlights:
       - Contributo allo sviluppo di un model-based random forest (R, mobForest)
       - Il modello stimava la probabilità di no-show di ogni prenotazione a partire da dati anagrafici del cliente, interazioni e tipo di servizio richiesto
       - Riduzione dei no-show del 15%, secondo i dati riportati dal cliente
-skills: [python, r, time-series, anomaly-detection, random-forest]
+    cv_summary: >-
+      Model-based random forest (R, mobForest) per stimare la probabilità di no-show delle
+      prenotazioni: -15% di no-show secondo i dati del cliente.
+skills: [python, r, scikit-learn, time-series, anomaly-detection, random-forest]
 ---

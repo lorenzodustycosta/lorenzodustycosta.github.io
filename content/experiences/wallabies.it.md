@@ -10,7 +10,7 @@ summary: >-
   Sviluppo di prodotti basati su dati evento del calcio per diversi mercati
   (Fantacalcio, scouting data-driven per club professionistici, betting).
 highlights:
-  - text: Reti neurali per la previsione della distribuzione dei gol di ciascuna squadra in una partita
+  - text: Reti neurali per la previsione della distribuzione dei gol in una partita
     metrics:
       - label: Accuratezza della previsione (1X2)
         value: "+3–8 pp"
@@ -22,6 +22,10 @@ highlights:
       - Miglioramento di 3–8 punti percentuali, a seconda del campionato, dell'accuratezza 1X2 di una rete neurale esistente che prevedeva il numero di gol segnati da ciascuna squadra in una partita
       - Addestramento di una rete separata per ogni campionato, invece di un'unica rete globale, per modellare le caratteristiche specifiche di ciascun campionato
       - Aggiunta di nuove feature al modello, come la codifica della forma recente di ogni squadra
+    cv_summary: >-
+      Reti neurali in PyTorch per la distribuzione dei gol di ciascuna squadra: +3–8 punti
+      percentuali di accuratezza 1X2 con un modello per campionato e nuove feature sulla
+      forma recente.
   - text: Supporto a un club di Serie A nello scouting data-driven
     metrics:
       - label: Lavoro manuale di scouting
@@ -29,5 +33,8 @@ highlights:
     details:
       - Sviluppo di una pipeline di post-processing in Python, personalizzata per il club, che affina in base alle sue esigenze la shortlist di giocatori individuati manualmente
       - Tempo di lavoro per ogni shortlist ridotto da circa mezza giornata a poco più di un'ora
-skills: [python, machine-learning, neural-networks, feature-engineering, sports-analytics, team-leadership]
+    cv_summary: >-
+      Pipeline Python di post-processing per lo scouting di un club di Serie A: tempo per
+      shortlist da mezza giornata a poco più di un'ora (-70%).
+skills: [python, machine-learning, neural-networks, pytorch, feature-engineering, sports-analytics, team-leadership]
 ---

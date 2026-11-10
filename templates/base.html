@@ -9,6 +9,8 @@
   {# Font self-hosted: precarico i due usati sopra la piega (titoli e testo) #}
   <link rel="preload" href="{{ url('fonts/source-serif-4-latin-600-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ url('fonts/ibm-plex-sans-latin-400-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+  {# tokens.css: font e design token, condivisi con il CV in PDF (cv.css) #}
+  <link rel="stylesheet" href="{{ url('css/tokens.css') }}">
   <link rel="stylesheet" href="{{ url('css/main.css') }}">
   {# Applica il tema scelto prima che la pagina venga disegnata, per evitare un lampo di colori sbagliati #}
   <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>

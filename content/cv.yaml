@@ -1,0 +1,48 @@
+# Impostazioni del CV in PDF (scripts/build_cv.py), versione inglese.
+# Schema completo ed esempi: docs/cv-schema.md. La versione italiana è cv.it.yaml.
+
+# Profilo breve in testa al CV (2–4 righe). Se manca si usa profile.summary, con un warning.
+summary: >-
+  Freelance data scientist with over 10 years of experience and a background in applied
+  mathematics. I build predictive models, probabilistic forecasts and KPI pipelines, from
+  problem definition to cloud deployment. I have worked across sectors including sport-tech,
+  renewable energy, telco and retail consulting, and gaming. I work with SMEs, startups and
+  consulting firms on proofs of concept, new builds, and the optimisation and maintenance
+  of existing models and pipelines.
+
+# Skill nella sidebar: id di skills.yaml, raggruppati per categoria. Se manca: quelle della Toolbox.
+skills: [python, sql, r, java, node-js, matlab,
+         machine-learning, neural-networks, pytorch, scikit-learn, xgboost,
+         quantile-regression, forecasting, time-series, anomaly-detection,
+         feature-engineering, polars,
+         probability, monte-carlo, mathematical-modeling,
+         postgresql, mongodb, bigquery,
+         gcp, aws, docker, kubernetes, git,
+         team-leadership]
+
+# Lingue con livello. Se manca: profile.languages, senza livello.
+languages:
+  - {name: Italian, level: Native}
+  - {name: English, level: Professional}
+  - {name: Turkish, level: Learning}
+
+# Sito personale nell'intestazione, dopo l'email
+website: https://lorenzodustycosta.github.io/en/
+
+gdpr: >-
+  I authorise the processing of the personal data contained in this CV in accordance
+  with Regulation (EU) 2016/679 (GDPR) and Italian Legislative Decree 196/2003.
+
+max_pages: 2
+
+labels:
+  contact: Contact
+  online: Online
+  summary: Profile
+  experience: Experience
+  publications: Publications
+  projects: Projects
+  certificates: Certificates
+  education: Education
+  skills: Skills
+  languages: Languages

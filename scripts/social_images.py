@@ -28,7 +28,7 @@ from sitegen.content import LANGUAGES, SITE_LANGUAGE, load_all  # noqa: E402
 STATIC = ROOT / "static"
 FONTS = (STATIC / "fonts").as_uri()
 
-# Stessi valori dei token in static/css/main.css (tema scuro, quello di default)
+# Stessi valori dei token in static/css/tokens.css (tema scuro, quello di default)
 PAPER, INK, MUTED, RULE, ACCENT = "#17171a", "#e9e6df", "#a39f96", "#34333a", "#86c5a1"
 
 FONT_FACES = f"""

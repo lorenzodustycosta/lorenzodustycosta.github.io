@@ -1,0 +1,45 @@
+# Impostazioni del CV in PDF (scripts/build_cv.py), versione italiana.
+# Schema completo ed esempi: docs/cv-schema.md.
+
+summary: >-
+  Data scientist freelance con oltre 10 anni di esperienza e una formazione in matematica
+  applicata. Sviluppo modelli predittivi, forecasting probabilistico e pipeline di KPI,
+  dalla definizione del problema al rilascio in cloud. Ho lavorato in diversi settori, tra
+  cui sport-tech, energie rinnovabili, consulenza per telco e retail, e gaming. Collaboro
+  con PMI, startup e società di consulenza su proof of concept, nuovi sviluppi,
+  ottimizzazione e manutenzione di modelli e pipeline esistenti.
+
+skills: [python, sql, r, java, node-js, matlab,
+         machine-learning, neural-networks, pytorch, scikit-learn, xgboost,
+         quantile-regression, forecasting, time-series, anomaly-detection,
+         feature-engineering, polars,
+         probability, monte-carlo, mathematical-modeling,
+         postgresql, mongodb, bigquery,
+         gcp, aws, docker, kubernetes, git,
+         team-leadership]
+
+languages:
+  - {name: Italiano, level: Madrelingua}
+  - {name: Inglese, level: Professionale}
+  - {name: Turco, level: In apprendimento}
+
+# Sito personale nell'intestazione, dopo l'email
+website: https://lorenzodustycosta.github.io/
+
+gdpr: >-
+  Autorizzo il trattamento dei dati personali contenuti nel mio curriculum vitae ai sensi
+  del Regolamento UE 2016/679 (GDPR) e del D.Lgs. 196/2003.
+
+max_pages: 2
+
+labels:
+  contact: Contatti
+  online: Online
+  summary: Profilo
+  experience: Esperienze
+  publications: Pubblicazioni
+  projects: Progetti
+  certificates: Certificati
+  education: Formazione
+  skills: Competenze
+  languages: Lingue
