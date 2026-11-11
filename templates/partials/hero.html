@@ -1,12 +1,13 @@
 {# Apertura della home: chi sono, cosa faccio, come contattarmi.
    La foto compare solo se profile.photo è impostato; senza, il testo occupa tutta la riga.
-   A destra del nome, solo da desktop, un grafico eolico decorativo (wind_chart_svg, aria-hidden). #}
+   Dietro foto e nome, un grafico eolico decorativo (wind_chart_svg, aria-hidden): è il primo elemento
+   della griglia e ne occupa le righe di foto, etichetta e nome. Solo con la foto (senza, non c'è griglia). #}
 {% from "partials/macros.html" import brand_icon with context %}
 {% set profile = site.profile %}
 <section class="hero">
-  {{ wind_chart_svg() }}
   <div class="container hero-inner">
     {% if profile.photo %}
+    {{ wind_chart_svg() }}
     {# width/height evitano lo spostamento del layout; la foto è sopra la piega, quindi niente lazy loading #}
     <img class="hero-photo" src="{{ url(profile.photo) }}" alt="{{ profile.name }}" width="480" height="480" fetchpriority="high">
     {% endif %}

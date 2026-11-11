@@ -55,10 +55,8 @@ def keep_hyphenated(text: str) -> Markup:
 @functools.cache
 def wind_chart_svg() -> Markup:
     """Grafico eolico decorativo dell'hero (sitegen/wind_chart.py) come SVG inline; i colori li dà il CSS.
-    "xMaxYMid slice": ritaglia senza deformare, quindi nello spazio accanto al nome si vede la parte finale
-    della serie invece di tre giorni compressi."""
-    return Markup(chart_svg(wind_series(), 1600, 400, top=20, bottom=380, css_class="hero-chart",
-                            aspect="xMaxYMid slice"))
+    preserveAspectRatio="none": si stira sulla fascia di foto e nome, con i tre giorni su tutta la larghezza."""
+    return Markup(chart_svg(wind_series(), 1600, 400, top=20, bottom=380, css_class="hero-chart", aspect="none"))
 
 
 def make_env(templates_dir: Path, base_url: str, site_url: str) -> Environment:
