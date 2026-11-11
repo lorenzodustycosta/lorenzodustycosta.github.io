@@ -8,6 +8,8 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined, pass_context
 from markdown_it import MarkdownIt
 from markupsafe import Markup, escape
 
+from sitegen.wind_chart import chart_svg, wind_series
+
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 _markdown = MarkdownIt("commonmark")
@@ -50,6 +52,15 @@ def keep_hyphenated(text: str) -> Markup:
     return Markup(re.sub(r"\w+(?:-\w+)+", lambda m: f'<span class="nowrap">{m.group(0)}</span>', str(escape(text))))
 
 
+@functools.cache
+def wind_chart_svg() -> Markup:
+    """Grafico eolico decorativo dell'hero (sitegen/wind_chart.py) come SVG inline; i colori li dà il CSS.
+    "xMaxYMid slice": ritaglia senza deformare, quindi nello spazio accanto al nome si vede la parte finale
+    della serie invece di tre giorni compressi."""
+    return Markup(chart_svg(wind_series(), 1600, 400, top=20, bottom=380, css_class="hero-chart",
+                            aspect="xMaxYMid slice"))
+
+
 def make_env(templates_dir: Path, base_url: str, site_url: str) -> Environment:
     env = Environment(
         loader=FileSystemLoader(templates_dir),
@@ -61,6 +72,7 @@ def make_env(templates_dir: Path, base_url: str, site_url: str) -> Environment:
     url = functools.partial(make_url, base_url)
     env.globals["url"] = url
     env.globals["absolute_url"] = lambda path: site_url.rstrip("/") + url(path)
+    env.globals["wind_chart_svg"] = wind_chart_svg
     env.filters["month_year"] = _month_year_filter
     env.filters["markdown"] = markdown
     env.filters["keep_hyphenated"] = keep_hyphenated

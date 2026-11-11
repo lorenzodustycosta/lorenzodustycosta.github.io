@@ -1,8 +1,10 @@
 {# Apertura della home: chi sono, cosa faccio, come contattarmi.
-   La foto compare solo se profile.photo è impostato; senza, il testo occupa tutta la riga. #}
+   La foto compare solo se profile.photo è impostato; senza, il testo occupa tutta la riga.
+   A destra del nome, solo da desktop, un grafico eolico decorativo (wind_chart_svg, aria-hidden). #}
 {% from "partials/macros.html" import brand_icon with context %}
 {% set profile = site.profile %}
 <section class="hero">
+  {{ wind_chart_svg() }}
   <div class="container hero-inner">
     {% if profile.photo %}
     {# width/height evitano lo spostamento del layout; la foto è sopra la piega, quindi niente lazy loading #}

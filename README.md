@@ -36,6 +36,21 @@ python scripts/build_cv.py --out altra/cartella  # cartella di output diversa
 - Lo script fallisce se un PDF supera `max_pages` (2, in `content/cv.yaml`) o se i font del sito non sono incorporati. Stampa l'elenco degli highlight senza `cv_summary`.
 - Campi del CV, fallback ed esempi: [docs/cv-schema.md](docs/cv-schema.md). Il test sul PDF vero (`tests/test_cv.py`) viene saltato se Playwright o Chromium non sono installati.
 
+## Banner LinkedIn
+
+Immagine per il profilo LinkedIn (1584x396), con i font e i colori del sito. Non fa parte del sito: va in `branding/`. Stesse dipendenze del CV (`requirements-cv.txt`).
+
+```bash
+python scripts/linkedin_banner.py                 # inglese, grafico a tutta larghezza → branding/linkedin-banner.png
+python scripts/linkedin_banner.py --lang it       # italiano → branding/linkedin-banner-it.png
+python scripts/linkedin_banner.py --chart left    # grafico solo a sinistra e al centro
+python scripts/linkedin_banner.py --chart both    # entrambe le varianti (-full, -left), per confrontarle
+```
+
+- Ogni banner ha un `*-preview.png` con l'area della foto profilo (desktop) e la zona sicura del testo (mobile).
+- Lo script fallisce se un testo esce dalla zona sicura, tocca l'area della foto o ha contrasto sotto 4.5:1 sui pixel reali dello sfondo.
+- Il grafico usa una serie eolica sintetica: i dati dell'immagine del sito non sono nel repository.
+
 ## Lingue
 
 Italiano su `/` (lingua del sito, `SITE_LANGUAGE` in `sitegen/content.py`), inglese su `/en/`. I file di contenuto base restano in inglese; per tradurre un contenuto crea un file parallelo con il suffisso `.it`:

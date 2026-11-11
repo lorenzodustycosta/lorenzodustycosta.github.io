@@ -424,3 +424,16 @@ def test_internal_links_and_anchors_exist(dist):
                 if parts.fragment not in ids:
                     broken.append(f"{page.relative_to(dist)} -> {link} (anchor missing)")
     assert not broken, "\n".join(broken)
+
+
+def test_hero_chart_is_decorative_and_deterministic(dist):
+    """Il grafico dell'hero è uno solo, nascosto agli screen reader, uguale tra le lingue e tra le build."""
+    from sitegen.wind_chart import wind_series
+
+    pages = [(dist / page).read_text() for page in ("index.html", "en/index.html")]
+    charts = [re.findall(r'<svg class="hero-chart".*?</svg>', html, re.S) for html in pages]
+    assert all(len(found) == 1 for found in charts)
+    assert 'aria-hidden="true"' in charts[0][0]
+    assert charts[0] == charts[1]
+    assert wind_series() == wind_series()  # seed fisso: nessuna differenza tra una build e l'altra
+    assert all(0 <= v <= 100 for values in wind_series().values() for v in values)

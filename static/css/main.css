@@ -101,14 +101,15 @@ figcaption,
   gap: 0.5rem 1rem;
   padding-block: 0.875rem;
 }
-/* Mobile: Home + strumenti in prima riga, menu sotto; da 48rem tutto su una riga */
-.site-header nav { order: 3; flex-basis: 100%; }
-.nav-list { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
-.home-link, .nav-list a { font-size: 0.9375rem; color: var(--ink-muted); text-decoration: none; }
-.home-link:hover, .home-link[aria-current="page"],
+/* Mobile: lingua e tema in una riga sottile sopra, a destra; sotto il menu intero su una riga
+   (voci distribuite sulla larghezza, testo un po' più piccolo: a 360 px servono ~280 px su 328).
+   Da 48rem tutto su una riga: menu a sinistra, strumenti a destra. */
+.site-header nav { order: 1; flex-basis: 100%; }
+.nav-list { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 0.5rem; }
+.nav-list a { font-size: 0.875rem; color: var(--ink-muted); text-decoration: none; white-space: nowrap; }
 .nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--ink); text-decoration: underline; }
 
-.header-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+.header-tools { order: 0; flex-basis: 100%; display: flex; justify-content: flex-end; align-items: center; gap: 1rem; }
 .lang-switch { display: flex; gap: 0.5rem; font-size: 0.8125rem; }
 .lang-switch a { color: var(--ink-muted); text-decoration: none; padding: 0.25rem 0.125rem; }
 .lang-switch a:hover { color: var(--ink); text-decoration: underline; }
@@ -125,9 +126,20 @@ figcaption,
   color: var(--ink);
   cursor: pointer;
 }
+/* Mobile: pulsante del tema più basso, per tenere sottile la riga degli strumenti (resta sopra i 24 px di WCAG 2.5.8) */
+@media (max-width: 47.99rem) {
+  .theme-toggle { width: 2rem; height: 2rem; }
+}
+/* Schermi sotto i 360 px (es. 320): testo del menu ancora un po' più piccolo, così resta su una riga */
+@media (max-width: 22.49rem) {
+  .nav-list a { font-size: 0.8125rem; }
+}
 @media (min-width: 48rem) {
   .header-inner, .nav-list { column-gap: 1.25rem; }
   .site-header nav { order: 0; flex-basis: auto; }
+  .nav-list { justify-content: flex-start; }
+  .nav-list a { font-size: 0.9375rem; }
+  .header-tools { order: 0; flex-basis: auto; margin-left: auto; }
 }
 
 /* ---- Hero -------------------------------------------------------------- */
@@ -240,6 +252,38 @@ figcaption,
     grid-row: 1 / span 9; /* occupa tutta l'altezza della colonna destra */
   }
   .hero .lead > p:nth-child(2) { margin-top: 0; }
+}
+
+/* Grafico eolico decorativo a destra del nome (sitegen/wind_chart.py, lo stesso del banner LinkedIn).
+   Solo da 68rem: più stretto, il nome arriva fin sotto il grafico (contrasto misurato: sotto 4.5:1
+   fino a ~1060 px, tema scuro). Sfuma a sinistra e verso il basso, così non passa sotto il nome
+   né sotto la presentazione. Colori dai token: vale per i due temi. */
+.hero { position: relative; overflow: hidden; }
+.hero-inner { position: relative; } /* il testo sopra il grafico */
+.hero-chart { display: none; }
+@media (min-width: 68rem) {
+  .hero-chart {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 38%;
+    height: 17rem;
+    pointer-events: none;
+    mask-image:
+      linear-gradient(to right, transparent, #000 35%, #000 85%, transparent),
+      linear-gradient(to bottom, transparent, #000 25%, #000 55%, transparent);
+    mask-composite: intersect;
+  }
+  .hero-chart .band { fill: color-mix(in srgb, var(--link) 45%, var(--paper)); opacity: 0.4; }
+  .hero-chart .p50 { fill: none; stroke: var(--link); stroke-width: 2; opacity: 0.6; }
+  .hero-chart .actual {
+    fill: none;
+    stroke: color-mix(in srgb, var(--link) 55%, var(--ink));
+    stroke-width: 1.5;
+    stroke-dasharray: 6 5;
+    opacity: 0.45;
+  }
 }
 
 /* ---- Intestazione delle pagine interne -------------------------------- */

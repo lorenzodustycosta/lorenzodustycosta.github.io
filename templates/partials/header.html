@@ -1,9 +1,9 @@
 <header class="site-header">
   <div class="container header-inner">
-    {# Home separata dal menu: su mobile sta in prima riga con lingua e tema, le altre voci sotto #}
-    <a class="home-link" href="{{ link('') }}"{% if current == 'home' %} aria-current="page"{% endif %}>{{ site.pages.home.nav_label }}</a>
+    {# Menu completo (Home compresa) su una riga; su mobile lingua e tema stanno in una riga sottile sopra #}
     <nav aria-label="{{ t.main_navigation }}">
       <ul class="nav-list" role="list">
+        <li><a href="{{ link('') }}"{% if current == 'home' %} aria-current="page"{% endif %}>{{ site.pages.home.nav_label }}</a></li>
         {% for key, page_meta, page_path in nav %}
         <li><a href="{{ link(page_path) }}"{% if key == current %} aria-current="page"{% endif %}>{{ page_meta.nav_label or page_meta.title }}</a></li>
         {% endfor %}

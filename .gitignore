@@ -15,5 +15,6 @@ content/private.yaml
 
 # Originali delle immagini (foto ad alta risoluzione, con EXIF): non si pubblicano
 media-src/
+branding/
 
 AI_CONTEXT.md
