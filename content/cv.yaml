@@ -17,8 +17,7 @@ skills: [python, sql, r, java, node-js, matlab,
          feature-engineering, polars,
          probability, monte-carlo, mathematical-modeling,
          postgresql, mongodb, bigquery,
-         gcp, aws, docker, kubernetes, git,
-         team-leadership]
+         gcp, aws, docker, kubernetes, git]
 
 # Lingue con livello. Se manca: profile.languages, senza livello.
 languages:

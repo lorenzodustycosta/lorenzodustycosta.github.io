@@ -134,6 +134,8 @@ figcaption,
 .hero { border-bottom: 1px solid var(--rule); padding-block: 3rem; }
 .hero h1 { margin-bottom: 1.25rem; }
 .lead { font-size: 1.125rem; max-width: var(--measure); }
+.lead > p { margin: 0; }
+.lead > p + p { margin-top: 0.75em; }
 /* Azioni dell'hero: bottone email + riga di link testuali.
    Desktop: sulla stessa riga; mobile: bottone a tutta larghezza, link sotto. */
 .hero-actions {
@@ -188,21 +190,59 @@ figcaption,
   .hero-actions .button { flex: 1 1 100%; }
 }
 
-/* Foto profilo: piccola sopra il testo su mobile, a destra su desktop */
-.hero-inner { display: grid; gap: 1.5rem; }
+/* Foto profilo accanto a etichetta e nome, come una firma; presentazione e azioni sotto.
+   Il contenitore del testo sparisce dalla griglia (display: contents), così ogni pezzo ha la sua area.
+   Senza foto (profile.photo vuoto) resta il flusso normale. */
 .hero-photo {
   display: block;
-  width: 7rem;
+  width: 5.5rem;
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
   border: 1px solid var(--rule);
   border-radius: 50%; /* foto rotonda, come nel CV */
 }
+.hero-inner:has(> .hero-photo) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "photo   label"
+    "photo   name"
+    "lead    lead"
+    "actions actions";
+  column-gap: 1.25rem;
+  align-items: center;
+}
+.hero-inner:has(> .hero-photo) .hero-text { display: contents; }
+.hero-inner:has(> .hero-photo) .hero-photo { grid-area: photo; }
+.hero-inner:has(> .hero-photo) .label { grid-area: label; align-self: end; margin: 0; }
+.hero-inner:has(> .hero-photo) h1 { grid-area: name; align-self: start; margin: 0; }
+.hero-inner:has(> .hero-photo) .lead { grid-area: lead; margin: 1.75rem 0 0; }
+.hero-inner:has(> .hero-photo) .hero-actions { grid-area: actions; }
+.hero .lead { max-width: none; }
+
 @media (min-width: 56rem) {
   .hero { padding-block: 5rem; }
-  .hero-inner:has(> .hero-photo) { grid-template-columns: minmax(0, 1fr) 16rem; gap: 4rem; align-items: center; }
-  .hero-photo { order: 1; width: 100%; }
+  .hero-inner:has(> .hero-photo) { column-gap: 2rem; }
+  .hero-photo { width: 9rem; }
+  /* Presentazione divisa per argomento: il primo paragrafo di profile.summary (il percorso)
+     a sinistra, gli altri (oggi e fuori dai dati) a destra, uno sotto l'altro */
+  .hero .lead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-content: start;
+    column-gap: 3rem;
+  }
+  .hero-inner:has(> .hero-photo) .lead { margin-top: 2.5rem; }
+  .hero .lead > p { grid-column: 2; }
+  .hero .lead > p:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 9; /* occupa tutta l'altezza della colonna destra */
+    padding-right: 3rem;
+    margin-right: -3rem; /* il filetto sta a metà dello spazio tra le colonne */
+    border-right: 1px solid var(--rule);
+  }
+  .hero .lead > p:nth-child(2) { margin-top: 0; }
 }
 
 /* ---- Intestazione delle pagine interne -------------------------------- */

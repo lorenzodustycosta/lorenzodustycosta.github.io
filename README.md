@@ -24,14 +24,14 @@ Il CV si genera dagli stessi contenuti del sito (`content/`), con i font e i col
 pip install -r requirements-cv.txt
 playwright install chromium        # una volta, scarica Chromium headless
 
-python scripts/build_cv.py                       # IT + EN, variante public → build/cv/
+python scripts/build_cv.py                       # IT + EN, variante public → static/cv/ (da committare)
 python scripts/build_cv.py --lang it             # una sola lingua (it | en | all)
 python scripts/build_cv.py --html-only           # solo l'anteprima HTML, senza Chromium
 python scripts/build_cv.py --variant full        # anche il telefono, da content/private.yaml
 python scripts/build_cv.py --out altra/cartella  # cartella di output diversa
 ```
 
-- Output: `build/cv/cv-it.pdf` e `cv-en.pdf`. Con `--html-only` solo le anteprime `cv-it.html` e `cv-en.html` (con `assets/`), da aprire nel browser per lavorare sullo stile. `build/` è in `.gitignore`.
+- Output: `static/cv/cv-it.pdf` e `cv-en.pdf`, linkati dal sito (`cv` in `profile.yaml`): rigenerali e committali quando cambiano i contenuti, la CI non li produce. Con `--variant full` e `--html-only` l'output va in `build/cv/`, che è in `.gitignore`.
 - **Variante `full`**: legge `content/private.yaml` (in `.gitignore`) e scrive `cv-<lang>-full.pdf`, anch'esso ignorato da git. Non va committata né pubblicata.
 - Lo script fallisce se un PDF supera `max_pages` (2, in `content/cv.yaml`) o se i font del sito non sono incorporati. Stampa l'elenco degli highlight senza `cv_summary`.
 - Campi del CV, fallback ed esempi: [docs/cv-schema.md](docs/cv-schema.md). Il test sul PDF vero (`tests/test_cv.py`) viene saltato se Playwright o Chromium non sono installati.

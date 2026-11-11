@@ -40,7 +40,7 @@ def test_reading_order_for_ats():
     html = html[html.index("<body>"):]  # l'<head> ripete nome e ruolo nei meta
     markers = ["<h1>Lorenzo Dusty Costa", "lorenzodusty.costa@gmail.com", ">Profile<", ">Experience<",
                "<h3>Freelance Data Scientist", "<h3>Game Designer", ">Publications<",
-               ">Education<", ">Skills<", "<h2>Certificates<", "<h2>Languages<", "Regulation (EU) 2016/679"]
+               ">Skills<", ">Education<", "<h2>Certificates<", "<h2>Languages<", "Regulation (EU) 2016/679"]
     positions = [html.index(m) for m in markers]
     assert positions == sorted(positions)
 

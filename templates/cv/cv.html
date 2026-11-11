@@ -115,6 +115,19 @@
     </main>
 
     <aside class="cv-side">
+      {# Solo le categorie con almeno una skill in cv.yaml (sitegen/cv.py, _skill_groups) #}
+      {% if cv.skill_groups %}
+      <section class="cv-section">
+        {% for label, skills in cv.skill_groups %}
+        <div class="cv-side-item">
+          {% if loop.first %}<h2>{{ labels.skills }}</h2>{% endif %}
+          <h3>{{ label }}</h3>
+          <p>{{ skills | map(attribute="label") | join(", ") }}</p>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
       {% if cv.degrees %}
       <section class="cv-section">
         {% for d in cv.degrees %}
@@ -124,19 +137,6 @@
           <p>{{ d.institution }}</p>
           <p class="cv-meta">{{ dates(d.start, d.end) }}{% if d.grade %} · {{ d.grade }}{% endif %}</p>
           {% if d.cv_summary %}<p class="cv-side-note">{{ d.cv_summary | cv_inline }}</p>{% endif %}
-        </div>
-        {% endfor %}
-      </section>
-      {% endif %}
-
-      {# Solo le categorie con almeno una skill in cv.yaml (sitegen/cv.py, _skill_groups) #}
-      {% if cv.skill_groups %}
-      <section class="cv-section">
-        {% for label, skills in cv.skill_groups %}
-        <div class="cv-side-item">
-          {% if loop.first %}<h2>{{ labels.skills }}</h2>{% endif %}
-          <h3>{{ label }}</h3>
-          <p>{{ skills | map(attribute="label") | join(", ") }}</p>
         </div>
         {% endfor %}
       </section>

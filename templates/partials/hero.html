@@ -12,7 +12,12 @@
       {# Ogni parte resta intera: se serve andare a capo, si va a capo tra le due #}
       <p class="label"><span class="nowrap">{{ profile.headline }} ·</span> <span class="nowrap">{{ profile.location }}</span></p>
       <h1>{{ profile.name }}</h1>
-      <p class="lead">{{ profile.summary | markdown_inline }}</p>
+      {# Un <p> per paragrafo di profile.summary (paragrafi separati da una riga vuota nello YAML) #}
+      <div class="lead">
+        {% for paragraph in profile.summary.strip().split("\n") if paragraph.strip() %}
+        <p>{{ paragraph | markdown_inline }}</p>
+        {% endfor %}
+      </div>
       {# Azioni: un solo bottone pieno (email), poi una riga di link testuali.
          Etichette e URL da profile.yaml e i18n.yaml; il link al CV compare solo se profile.cv è impostato. #}
       <div class="hero-actions">

@@ -61,7 +61,7 @@ I campi `cv_summary`, `cv_title` e `cv` vanno **rientrati come gli altri campi d
 | `cv` | bool | `true` | `false` esclude la voce |
 | `cv_summary` | testo | nessuno | riga sotto titolo, ente, date e voto |
 
-Lauree (`kind: degree`) e scuole (`kind: school`) vanno nella sidebar, prima le lauree. I certificati (`kind: certificate`) vanno nella sidebar dopo le skill, con titolo, ente e anno.
+Lauree (`kind: degree`) e scuole (`kind: school`) vanno nella sidebar dopo le skill, prima le lauree. I certificati (`kind: certificate`) vanno nella sidebar dopo la formazione, con titolo, ente e anno.
 
 ## Progetti e pubblicazioni
 
@@ -126,7 +126,7 @@ La variante `public`, quella pubblicabile, ignora questo file anche quando esist
 ## Ordine e layout
 
 - Esperienze, formazione e pubblicazioni sono in ordine cronologico inverso, come nel sito. Per togliere una voce si usa `cv: false`.
-- Nel DOM l'ordine è: nome e contatti, profilo, esperienze, pubblicazioni, progetti, formazione, skill, certificati, lingue, GDPR. La sidebar appare a sinistra solo per effetto del CSS. Attenzione: chi estrae il testo dal PDF (pdftotext, pypdf, gli ATS) lo fa **pagina per pagina**, quindi la sidebar di pagina 1 viene letta prima delle voci che continuano a pagina 2. L'ordine del DOM vale per intero solo nella struttura del PDF taggato.
+- Nel DOM l'ordine è: nome e contatti, profilo, esperienze, pubblicazioni, progetti, skill, formazione, certificati, lingue, GDPR. La sidebar appare a sinistra solo per effetto del CSS. Attenzione: chi estrae il testo dal PDF (pdftotext, pypdf, gli ATS) lo fa **pagina per pagina**, quindi la sidebar di pagina 1 viene letta prima delle voci che continuano a pagina 2. L'ordine del DOM vale per intero solo nella struttura del PDF taggato.
 - Nella sidebar compaiono solo le categorie di skill con almeno una voce in `skills` di `cv.yaml`.
 - Impaginazione: un bullet non si spezza mai fra due pagine. Ruolo, azienda e date restano nella stessa pagina dei primi due bullet dell'esperienza (o dell'unico, se è uno solo); poi l'esperienza può continuare nella pagina dopo, fra un bullet e l'altro. Ogni titolo di sezione resta con l'intestazione della prima voce. È fatto con un wrapper `.cv-keep` (`break-inside: avoid`), perché `break-after: avoid` sui titoli in Chromium non è affidabile.
 - Parole col trattino ("sport-tech") non vanno mai a capo sul trattino (filtro `cv_inline`): pdftotext le ricomporrebbe senza trattino ("sporttech").

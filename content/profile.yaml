@@ -5,15 +5,16 @@ email: lorenzodusty.costa@gmail.com
 email_subject: Contact from website
 availability: Available for freelance projects in data science
 summary: >
-  Data scientist with over 10 years of experience and an academic background in mathematics.
-  I started at Sisal, developing mathematical models for lotteries and betting, and later broadened
-  my work to data science consulting, backend development and cloud infrastructure.
-  For 5 years I worked at two football-industry startups on end-to-end data solutions for tactical
-  analysis and scouting, from predictive models to cloud deployment. Since 2025 I have been working
-  as a freelancer on data science projects for clients across different sectors. I'm interested in
-  sport-tech, energy, healthcare, real estate, tourism and aerospace, with the goal of applying AI
-  in an ethical and sustainable way.
-  <br>
+  Data scientist with over 10 years of experience and an academic background in mathematics. I
+  started at Sisal, developing mathematical models for lotteries and betting, and later broadened my
+  work to data science consulting, backend development and cloud infrastructure. For 5 years I
+  worked at two football-industry startups on end-to-end data solutions for tactical analysis and
+  scouting, from predictive models to cloud deployment.
+
+  Since 2025 I have been working as a freelancer on data science projects for clients across
+  different sectors. I'm interested in sport-tech, energy, healthcare, real estate, tourism and
+  aerospace, with the goal of applying AI in an ethical and sustainable way.
+
   Outside data work, I co-run [Selos Design](https://selosdesign.com), an interior design studio,
   with my wife. It taught me to handle clients and deadlines and to run a small business end to end.
 languages: [Italian, English, Turkish]
@@ -25,7 +26,7 @@ links:
   - label: GitHub
     url: https://github.com/lorenzodustycosta
 # Da attivare quando i file sono in static/ (la build verifica che esistano):
-cv: build/cv/cv-en.pdf
+cv: cv/cv-en.pdf   # generato da scripts/build_cv.py in static/cv/
 image: img/og-image-en.png   # anteprima social in inglese, 1200x630 px (scripts/social_images.py)
 photo: img/lorenzo.webp   # foto profilo nella home e nel CV: quadrata, 480x480 px, < 50 KB
 # Cloudflare Web Analytics (dashboard Cloudflare → Web Analytics → Add a site → snippet JS).

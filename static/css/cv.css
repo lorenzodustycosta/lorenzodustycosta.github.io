@@ -55,7 +55,7 @@ h1, h2, h3 { text-wrap: balance; }
 /* Con la foto: testo a sinistra, foto quadrata a destra, alta quanto nome + ruolo + contatti */
 .cv-header:has(> .cv-photo) {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 25mm;
+  grid-template-columns: minmax(0, 1fr) 30mm;
   column-gap: 7mm;
   align-items: center;
 }
@@ -64,10 +64,9 @@ h1, h2, h3 { text-wrap: balance; }
   grid-column: 2;
   grid-row: 1 / span 3;
   display: block;
-  width: 25mm;
-  height: 25mm;
+  width: 30mm;
+  height: 30mm;
   object-fit: cover;
-  border: 1px solid var(--rule);
   border-radius: 50%; /* foto rotonda, come nel sito */
 }
 .cv-header h1 { font-size: 24pt; line-height: 1.05; }

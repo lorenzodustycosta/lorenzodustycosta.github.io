@@ -1,8 +1,8 @@
 """Genera il CV in PDF dagli stessi contenuti del sito (content/), con i font e i colori del sito.
 
-    python scripts/build_cv.py                          # tutte le lingue, variante public, in build/cv/
+    python scripts/build_cv.py                          # tutte le lingue, variante public, in static/cv/ (pubblicata col sito)
     python scripts/build_cv.py --lang it                # solo italiano
-    python scripts/build_cv.py --variant full           # con telefono (content/private.yaml): MAI committare
+    python scripts/build_cv.py --variant full           # con telefono (content/private.yaml), in build/cv/: MAI committare
     python scripts/build_cv.py --html-only              # solo l'anteprima HTML (con CSS e font), senza Chromium
     python scripts/build_cv.py --max-pages 3            # limite di pagine diverso da cv.yaml
 
@@ -30,7 +30,10 @@ from sitegen.content import LANGUAGES, ContentError, load_all  # noqa: E402
 from sitegen.cv import VARIANTS, load_cv_settings, render_cv_html  # noqa: E402
 
 STATIC = ROOT / "static"
-DEFAULT_OUT = ROOT / "build" / "cv"
+# La variante public va in static/cv/: si committa e il sito la linka (profile.cv), perché la CI non ha Chromium.
+# La variante full (telefono) e le anteprime --html-only restano in build/cv/, in .gitignore.
+PUBLIC_OUT = STATIC / "cv"
+PRIVATE_OUT = ROOT / "build" / "cv"
 # Prefissi dei nomi dei font del sito nel PDF (es. "AAAAAA+IBMPlexSans"): servono a verificarne l'incorporazione
 SITE_FONTS = ("SourceSerif4", "IBMPlexSans", "IBMPlexMono")
 
@@ -104,13 +107,17 @@ def main() -> None:
     parser.add_argument("--lang", choices=[*LANGUAGES, "all"], default="all")
     parser.add_argument("--variant", choices=VARIANTS, default="public",
                         help="public: email, LinkedIn, GitHub (default). full: also phone numbers, local only")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help=f"output folder (default: {DEFAULT_OUT.relative_to(ROOT)})")
+    parser.add_argument("--out", type=Path, help=f"output folder (default: {PUBLIC_OUT.relative_to(ROOT)} for the public PDF, "
+                                                 f"{PRIVATE_OUT.relative_to(ROOT)} for --variant full and --html-only)")
     parser.add_argument("--max-pages", type=int, help="page limit (default: max_pages in cv.yaml)")
     parser.add_argument("--html-only", action="store_true", help="only the HTML preview, no PDF")
     args = parser.parse_args()
 
     langs = LANGUAGES if args.lang == "all" else (args.lang,)
-    out_dir = args.out.resolve()
+    if args.out:
+        out_dir = args.out.resolve()
+    else:
+        out_dir = PUBLIC_OUT if args.variant == "public" and not args.html_only else PRIVATE_OUT
     out_dir.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="cv-") as tmp:
