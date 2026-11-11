@@ -12,7 +12,7 @@ summary: >-
 
 # Skill nella sidebar: id di skills.yaml, raggruppati per categoria. Se manca: quelle della Toolbox.
 skills: [python, sql, r, java, node-js, matlab,
-         machine-learning, neural-networks, pytorch, scikit-learn, xgboost,
+         machine-learning, neural-networks, pytorch, scikit-learn, xgboost, mlflow,
          quantile-regression, forecasting, time-series, anomaly-detection,
          feature-engineering, polars,
          probability, monte-carlo, mathematical-modeling,

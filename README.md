@@ -31,8 +31,8 @@ python scripts/build_cv.py --variant full        # anche il telefono, da content
 python scripts/build_cv.py --out altra/cartella  # cartella di output diversa
 ```
 
-- Output: `static/cv/cv-it.pdf` e `cv-en.pdf`, linkati dal sito (`cv` in `profile.yaml`): rigenerali e committali quando cambiano i contenuti, la CI non li produce. Con `--variant full` e `--html-only` l'output va in `build/cv/`, che è in `.gitignore`.
-- **Variante `full`**: legge `content/private.yaml` (in `.gitignore`) e scrive `cv-<lang>-full.pdf`, anch'esso ignorato da git. Non va committata né pubblicata.
+- Output: `static/cv/cv-costa-it.pdf` e `cv-costa-en.pdf`, linkati dal sito (`cv` in `profile.yaml`): rigenerali e committali quando cambiano i contenuti, la CI non li produce. Con `--variant full` e `--html-only` l'output va in `build/cv/`, che è in `.gitignore`.
+- **Variante `full`**: legge `content/private.yaml` (in `.gitignore`) e scrive `cv-costa-<lang>-full.pdf`, anch'esso ignorato da git. Non va committata né pubblicata.
 - Lo script fallisce se un PDF supera `max_pages` (2, in `content/cv.yaml`) o se i font del sito non sono incorporati. Stampa l'elenco degli highlight senza `cv_summary`.
 - Campi del CV, fallback ed esempi: [docs/cv-schema.md](docs/cv-schema.md). Il test sul PDF vero (`tests/test_cv.py`) viene saltato se Playwright o Chromium non sono installati.
 

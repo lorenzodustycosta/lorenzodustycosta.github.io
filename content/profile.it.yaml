@@ -29,7 +29,7 @@ links:
   - label: website
     url: https://lorenzodustycosta.github.io/
 # Da attivare quando i file sono in static/ (la build verifica che esistano):
-cv: cv/cv-it.pdf   # generato da scripts/build_cv.py in static/cv/
+cv: cv/cv-costa-it.pdf   # generato da scripts/build_cv.py in static/cv/
 image: img/og-image.png   # anteprima social, 1200x630 px (scripts/social_images.py)
 photo: img/lorenzo.webp   # foto profilo nella home e nel CV: quadrata, 480x480 px, < 50 KB
 # Cloudflare Web Analytics (dashboard Cloudflare → Web Analytics → Add a site → snippet JS).

@@ -6,8 +6,8 @@
     python scripts/build_cv.py --html-only              # solo l'anteprima HTML (con CSS e font), senza Chromium
     python scripts/build_cv.py --max-pages 3            # limite di pagine diverso da cv.yaml
 
-Per ogni lingua scrive il PDF (cv-<lang>.pdf). L'HTML da cui nasce resta in una cartella temporanea;
-con --html-only invece si scrive solo quello (cv-<lang>.html + assets/), da aprire nel browser per
+Per ogni lingua scrive il PDF (cv-costa-<lang>.pdf). L'HTML da cui nasce resta in una cartella temporanea;
+con --html-only invece si scrive solo quello (cv-costa-<lang>.html + assets/), da aprire nel browser per
 lavorare sullo stile. La variante full aggiunge "-full" al nome dei file.
 
 Fallisce se un PDF supera il limite di pagine (max_pages in cv.yaml) o se i font del sito
@@ -51,7 +51,7 @@ def copy_assets(out_dir: Path, photos: set[str]) -> None:
 
 
 def file_stem(lang: str, variant: str) -> str:
-    return f"cv-{lang}" if variant == "public" else f"cv-{lang}-full"
+    return f"cv-costa-{lang}" if variant == "public" else f"cv-costa-{lang}-full"
 
 
 def write_pdfs(html_files: list[Path], out_dir: Path) -> list[Path]:

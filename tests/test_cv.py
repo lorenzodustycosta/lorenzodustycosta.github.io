@@ -188,7 +188,7 @@ def test_pdf_is_a4_selectable_and_within_page_limit(tmp_path):
 
     subprocess.run([sys.executable, str(ROOT / "scripts" / "build_cv.py"), "--lang", "en", "--out", str(tmp_path)],
                    check=True, capture_output=True)
-    reader = PdfReader(tmp_path / "cv-en.pdf")
+    reader = PdfReader(tmp_path / "cv-costa-en.pdf")
     assert 1 <= len(reader.pages) <= 2
     width, height = (float(v) for v in reader.pages[0].mediabox.upper_right)
     assert (round(width), round(height)) == (595, 842)  # A4 in punti

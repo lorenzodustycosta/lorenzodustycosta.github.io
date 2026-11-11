@@ -18,7 +18,7 @@ highlights:
     metrics:
       - label: nMAE, quarter-hour P50 (share of installed capacity)
         value: "~10%"
-    skills: [python, xgboost, quantile-regression, forecasting, probabilistic-modeling, feature-engineering, gcp, bigquery, cloud-run, cloud-scheduler, cloud-storage, docker]
+    skills: [python, xgboost, mlflow, quantile-regression, forecasting, probabilistic-modeling, feature-engineering, gcp, bigquery, cloud-run, cloud-scheduler, cloud-storage, docker]
     tag: renewable energy
     context: >-
       The client needed a proof of concept to test the feasibility of a
@@ -31,6 +31,7 @@ highlights:
       - Set up BigQuery tables and backup queries
       - Feature engineering with Python and BigQuery
       - Trained an XGBoost quantile model per plant with the pinball loss, applying conformalized quantile regression (CQR) to correct the P10 and P90 bounds
+      - Tracked experiments with MLflow (parameters, metrics and models) to compare model and feature configurations
       - Modeled different market formats and auction types for the day-ahead market, at hourly and quarter-hour resolution
       - Performance similar to two commercial production forecast providers (nMAE ~10% of installed capacity on quarter-hour P50 forecasts) and in line with industry standards, despite a short and seasonally biased test period (summer)
       - Handed the PoC over to the client's internal team

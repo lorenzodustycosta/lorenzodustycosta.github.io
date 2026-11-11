@@ -10,7 +10,7 @@ summary: >-
   ottimizzazione e manutenzione di modelli e pipeline esistenti.
 
 skills: [python, sql, r, java, node-js, matlab,
-         machine-learning, neural-networks, pytorch, scikit-learn, xgboost,
+         machine-learning, neural-networks, pytorch, scikit-learn, xgboost, mlflow,
          quantile-regression, forecasting, time-series, anomaly-detection,
          feature-engineering, polars,
          probability, monte-carlo, mathematical-modeling,
