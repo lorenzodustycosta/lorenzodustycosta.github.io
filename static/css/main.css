@@ -238,9 +238,6 @@ figcaption,
   .hero .lead > p:first-child {
     grid-column: 1;
     grid-row: 1 / span 9; /* occupa tutta l'altezza della colonna destra */
-    padding-right: 3rem;
-    margin-right: -3rem; /* il filetto sta a metà dello spazio tra le colonne */
-    border-right: 1px solid var(--rule);
   }
   .hero .lead > p:nth-child(2) { margin-top: 0; }
 }
