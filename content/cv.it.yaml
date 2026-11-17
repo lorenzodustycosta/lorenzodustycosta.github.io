@@ -42,3 +42,8 @@ labels:
   education: Formazione
   skills: Competenze
   languages: Lingue
+
+# Settori accanto all'azienda (id da Sector in sitegen/models.py); se manca, l'id
+sectors:
+  energy: energia
+  consulting: consulenza

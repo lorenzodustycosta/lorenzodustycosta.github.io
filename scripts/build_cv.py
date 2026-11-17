@@ -3,6 +3,7 @@
     python scripts/build_cv.py                          # tutte le lingue, variante public, in static/cv/ (pubblicata col sito)
     python scripts/build_cv.py --lang it                # solo italiano
     python scripts/build_cv.py --variant full           # con telefono (content/private.yaml), in build/cv/: MAI committare
+    python scripts/build_cv.py --archive                # variante full + copia in <archive_dir>/YYYY_MM_DD/ (archive_dir in private.yaml)
     python scripts/build_cv.py --html-only              # solo l'anteprima HTML (con CSS e font), senza Chromium
     python scripts/build_cv.py --max-pages 3            # limite di pagine diverso da cv.yaml
 
@@ -18,6 +19,7 @@ Schema dei contenuti: docs/cv-schema.md
 """
 
 import argparse
+import datetime
 import shutil
 import sys
 import tempfile
@@ -27,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from sitegen.content import LANGUAGES, ContentError, load_all  # noqa: E402
-from sitegen.cv import VARIANTS, load_cv_settings, render_cv_html  # noqa: E402
+from sitegen.cv import VARIANTS, load_cv_settings, load_private, render_cv_html  # noqa: E402
 
 STATIC = ROOT / "static"
 # La variante public va in static/cv/: si committa e il sito la linka (profile.cv), perché la CI non ha Chromium.
@@ -111,7 +113,20 @@ def main() -> None:
                                                  f"{PRIVATE_OUT.relative_to(ROOT)} for --variant full and --html-only)")
     parser.add_argument("--max-pages", type=int, help="page limit (default: max_pages in cv.yaml)")
     parser.add_argument("--html-only", action="store_true", help="only the HTML preview, no PDF")
+    parser.add_argument("--archive", action="store_true",
+                        help="implies --variant full; also copies the PDFs to <archive_dir>/YYYY_MM_DD/ (archive_dir in private.yaml)")
     args = parser.parse_args()
+    if args.archive:
+        if args.html_only:
+            parser.error("--archive needs the PDFs: drop --html-only")
+        args.variant = "full"
+        try:
+            archive_root = load_private().archive_dir
+        except ContentError as exc:
+            raise SystemExit(f"Content error: {exc}") from None
+        if archive_root is None:
+            raise SystemExit("--archive: set archive_dir in content/private.yaml (see docs/cv-schema.md)")
+        archive_dir = archive_root.expanduser() / datetime.date.today().strftime("%Y_%m_%d")
 
     langs = LANGUAGES if args.lang == "all" else (args.lang,)
     if args.out:
@@ -141,9 +156,10 @@ def main() -> None:
         except ContentError as exc:
             raise SystemExit(f"Content error: {exc}") from None
 
-        problems = []
+        problems, pdfs = [], []
         if not args.html_only:
-            for pdf in write_pdfs(html_files, out_dir):
+            pdfs = write_pdfs(html_files, out_dir)
+            for pdf in pdfs:
                 problems += check_pdf(pdf, limits[pdf])
 
     for lang, items in missing.items():
@@ -155,6 +171,11 @@ def main() -> None:
         print("Note: 'full' variant contains private contacts. Do not commit or publish it.")
     if problems:
         raise SystemExit("CV check failed:\n" + "\n".join(f"  - {p}" for p in problems))
+    if args.archive:  # solo PDF che hanno passato i controlli; stessa data → si sovrascrivono
+        archive_dir.mkdir(parents=True, exist_ok=True)
+        for pdf in pdfs:
+            shutil.copy2(pdf, archive_dir / pdf.name)
+            print(f"Archived {archive_dir / pdf.name}")
 
 
 if __name__ == "__main__":

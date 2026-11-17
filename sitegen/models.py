@@ -6,6 +6,7 @@ mancante, una data malformata o una skill inesistente fanno fallire la build.
 
 from collections import Counter
 from datetime import date
+from pathlib import Path
 from typing import Annotated, Literal
 from urllib.parse import quote
 
@@ -137,7 +138,8 @@ class Highlight(Media):
     # CV in PDF (docs/cv-schema.md): ogni highlight è un bullet del CV
     cv: bool = True  # False: highlight escluso dal CV
     cv_title: str | None = None  # solo nel fallback senza cv_summary (default: title, altrimenti text)
-    cv_summary: str | None = None  # il bullet del CV; da solo, senza titolo, tag né metriche
+    cv_summary: str | None = None  # il bullet del CV, senza titolo, tag né metriche
+    cv_tag: str | None = None  # settore stampato accanto al cv_summary (il tag del sito non si usa)
 
 
 class Experience(Media):
@@ -368,6 +370,7 @@ class CvSettings(Model):
     gdpr: str  # riga finale con il consenso al trattamento dei dati
     max_pages: int = Field(default=2, ge=1)
     labels: CvLabels
+    sectors: dict[Sector, str] = {}  # nome dei settori accanto all'azienda; se manca, l'id (es. sport-tech)
 
 
 class PrivateContacts(Model):
@@ -375,3 +378,5 @@ class PrivateContacts(Model):
 
     phones: list[str] = Field(min_length=1)
     address: str | None = None
+    # --archive di build_cv.py: copia i PDF full in <archive_dir>/YYYY_MM_DD/. Path locale, mai nel repository
+    archive_dir: Path | None = None

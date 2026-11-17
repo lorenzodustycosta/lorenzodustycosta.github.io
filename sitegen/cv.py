@@ -47,7 +47,7 @@ class CvBullet:
     """Un highlight nel CV: il suo cv_summary, oppure (fallback) il suo titolo con il settore."""
 
     text: str
-    tag: str | None = None  # solo nel fallback: con cv_summary il settore non si stampa
+    tag: str | None = None  # cv_tag con cv_summary; nel fallback il tag del sito
     fallback: bool = False
 
 
@@ -138,7 +138,7 @@ def _skill_groups(site: SiteContent, settings: CvSettings) -> list[tuple[str, li
 
 
 def _experience(e: Experience, missing: list[str]) -> CvExperience:
-    """Un bullet per highlight: solo cv_summary (niente titolo, tag, metriche: i numeri sono nel testo).
+    """Un bullet per highlight: cv_summary con l'eventuale cv_tag (niente titolo, tag, metriche: i numeri sono nel testo).
 
     Senza cv_summary si usa il titolo dell'highlight con il settore, e lo si segnala nel warning.
     """
@@ -147,7 +147,7 @@ def _experience(e: Experience, missing: list[str]) -> CvExperience:
         if not h.cv:
             continue
         if h.cv_summary is not None:
-            bullets.append(CvBullet(h.cv_summary))
+            bullets.append(CvBullet(h.cv_summary, h.cv_tag))
             continue
         title = h.cv_title or h.title or h.text
         missing.append(f"experiences/{e.id}: cv_summary of highlight {number} ({title[:40]}...)")

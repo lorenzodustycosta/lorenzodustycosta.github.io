@@ -28,6 +28,7 @@ python scripts/build_cv.py                       # IT + EN, variante public → 
 python scripts/build_cv.py --lang it             # una sola lingua (it | en | all)
 python scripts/build_cv.py --html-only           # solo l'anteprima HTML, senza Chromium
 python scripts/build_cv.py --variant full        # anche il telefono, da content/private.yaml
+python scripts/build_cv.py --archive             # full + copia in <archive_dir>/YYYY_MM_DD/ (archive_dir in private.yaml)
 python scripts/build_cv.py --out altra/cartella  # cartella di output diversa
 ```
 

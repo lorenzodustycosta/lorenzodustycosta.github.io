@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 from sitegen.content import CONTENT_DIR, ContentError, missing_translations
-from sitegen.cv import cv_data, render_cv_html
+from sitegen.cv import cv_data, load_private, render_cv_html
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -59,6 +59,13 @@ def test_full_variant_shows_private_contacts(content_copy):
     assert "Via Esempio 1" in html
 
 
+def test_private_archive_dir_is_optional(content_copy):
+    (content_copy / "private.yaml").write_text('phones: ["1"]\narchive_dir: ~/cv-archive\n', encoding="utf-8")
+    assert load_private(content_copy).archive_dir == Path("~/cv-archive")
+    (content_copy / "private.yaml").write_text('phones: ["1"]\n', encoding="utf-8")
+    assert load_private(content_copy).archive_dir is None
+
+
 def test_full_variant_without_private_file_fails(content_copy):
     with pytest.raises(ContentError, match="private.yaml not found"):
         cv_data("it", "full", content_dir=content_copy)
@@ -103,9 +110,20 @@ def test_bullets_are_only_cv_summary(content_copy):
     assert not any(m.startswith("experiences/demo") for m in data.missing)
     html, _ = render_cv_html("en", content_dir=content_copy)
     assert "First summary for the CV" in html
-    for absent in ("First activity", "First site bullet", ">energy<", "Site metric", "-42%",
-                   "Site summary of the demo job"):  # titolo, text, tag, metriche, summary dell'esperienza
+    assert [b.tag for b in item.bullets] == [None] * 4  # senza cv_tag il tag del sito non si stampa
+    for absent in ("First activity", "First site bullet", "Site metric", "-42%",
+                   "Site summary of the demo job"):  # titolo, text, metriche, summary dell'esperienza
         assert absent not in html
+
+
+def test_cv_tag_is_printed_after_cv_summary(content_copy):
+    write_experience(content_copy)
+    edit(content_copy / "experiences" / "demo.md", "    tag: energy\n",
+         "    tag: energy\n    cv_tag: wind-power\n    cv_summary: First summary for the CV\n")
+    item = demo(cv_data("en", content_dir=content_copy))
+    assert (item.bullets[0].text, item.bullets[0].tag) == ("First summary for the CV", "wind-power")
+    html, _ = render_cv_html("en", content_dir=content_copy)
+    assert '<span class="cv-meta-inline">wind-power</span>' in html
 
 
 def test_missing_cv_summary_falls_back_with_warning(content_copy):
@@ -117,6 +135,13 @@ def test_missing_cv_summary_falls_back_with_warning(content_copy):
     assert [(b.text, b.tag, b.fallback) for b in item.bullets] == [
         ("First activity", "energy", True), ("Third site bullet", None, True), ("Fourth site bullet", None, True)]
     assert "experiences/demo: cv_summary of highlight 1 (First activity...)" in data.missing
+
+
+def test_sectors_next_to_company_are_translated():
+    en, _ = render_cv_html("en", content_dir=CONTENT_DIR)
+    it, _ = render_cv_html("it", content_dir=CONTENT_DIR)
+    assert '<span class="cv-sector">consulting, telco, retail</span>' in en
+    assert '<span class="cv-sector">consulenza, telco, retail</span>' in it
 
 
 def test_header_and_first_two_bullets_stay_together():

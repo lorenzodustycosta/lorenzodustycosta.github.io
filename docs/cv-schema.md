@@ -12,7 +12,7 @@ Le lingue funzionano come nel resto del sito: i testi italiani vanno nei file `.
 
 ## Esperienze (`content/experiences/*.md`)
 
-Ogni highlight dell'esperienza diventa **un bullet del CV**, senza limite di numero. Il bullet è solo il `cv_summary` dell'highlight: nel CV non compaiono `text`/`title` dell'highlight, il settore (`tag`) né le `metrics` (i numeri vanno scritti dentro `cv_summary`). Sotto ruolo, azienda e date non si stampa nessun riassunto dell'esperienza (il `summary` del sito non si usa).
+Ogni highlight dell'esperienza diventa **un bullet del CV**, senza limite di numero. Il bullet è solo il `cv_summary` dell'highlight: nel CV non compaiono `text`/`title` dell'highlight, il settore del sito (`tag`) né le `metrics` (i numeri vanno scritti dentro `cv_summary`). Sotto ruolo, azienda e date non si stampa nessun riassunto dell'esperienza (il `summary` del sito non si usa).
 
 Campo a livello di esperienza:
 
@@ -25,6 +25,7 @@ Campi dentro ogni highlight (tutti opzionali):
 | Campo | Default | Uso |
 |---|---|---|
 | `cv_summary` | fallback con warning (vedi sotto) | il testo del bullet, 1–3 righe |
+| `cv_tag` | nessuno | il settore stampato dopo il testo del bullet (es. `energy`, `sport-tech`) |
 | `cv` | `true` | `false` esclude l'highlight dal CV |
 | `cv_title` | `title`, altrimenti `text` | solo nel fallback: il testo del bullet quando manca `cv_summary` |
 
@@ -52,7 +53,7 @@ skills: [python, aws, docker]
 ---
 ```
 
-I campi `cv_summary`, `cv_title` e `cv` vanno **rientrati come gli altri campi dell'highlight** (4 spazi, allineati a `metrics:`). La versione italiana (`mathsport.it.md`) ha gli stessi campi, con i testi in italiano.
+I campi `cv_summary`, `cv_tag`, `cv_title` e `cv` vanno **rientrati come gli altri campi dell'highlight** (4 spazi, allineati a `metrics:`). La versione italiana (`mathsport.it.md`) ha gli stessi campi, con i testi in italiano.
 
 ## Formazione e certificati (`content/education/*.md`)
 
@@ -98,9 +99,11 @@ labels:                     # obbligatorio: titoli delle sezioni
   education: Education
   skills: Skills
   languages: Languages
+sectors:                    # opzionale: nome dei settori accanto all'azienda (default: l'id)
+  energy: energia           # es. in cv.it.yaml
 ```
 
-Un id di skill sconosciuto fa fallire lo script.
+Un id di skill sconosciuto fa fallire lo script. Accanto all'azienda il CV stampa i `sectors` dell'esperienza (gli stessi del sito); le esperienze senza `company` (freelance) non li mostrano, perché il settore è su ogni bullet (`cv_tag`).
 
 ## Contatti privati (`content/private.yaml`, solo variante `full`)
 
@@ -109,7 +112,10 @@ Il file è in `.gitignore` e **non va mai committato**: il repository è pubblic
 ```yaml
 phones: ["+39 ..."]         # obbligatorio, almeno uno
 address: ...                # opzionale
+archive_dir: ~/percorso/CV  # opzionale: cartella per --archive
 ```
+
+`python scripts/build_cv.py --archive` genera la variante `full` e, se i controlli passano, copia i PDF in `<archive_dir>/YYYY_MM_DD/` (data di oggi; rilanciato lo stesso giorno sovrascrive). Il percorso sta qui e non nello script perché è locale e non deve finire nel repository.
 
 La variante `public`, quella pubblicabile, ignora questo file anche quando esiste. Nell'intestazione mostra luogo, email, LinkedIn e GitHub (da `profile.yaml`).
 

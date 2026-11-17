@@ -35,6 +35,7 @@ highlights:
       - Modellazione di diversi formati di mercato e tipi di asta per il mercato day-ahead, a risoluzione oraria e al quarto d'ora
       - Prestazioni simili a quelle di due provider commerciali di previsioni di produzione (nMAE ~10% della capacità installata sulle previsioni P50 al quarto d'ora) e in linea con gli standard di settore, pur con un periodo di test breve e stagionalmente sbilanciato (estate)
       - Consegna della PoC al team interno del cliente
+    cv_tag: energia
     cv_summary: >-
         PoC end-to-end su GCP per 5 impianti eolici: ingestione dati, feature engineering,
         modelli XGBoost a quantili con calibrazione conformal (CQR). nMAE ~10% della capacità
@@ -51,6 +52,7 @@ highlights:
       - Sviluppo, insieme al team del cliente, di un framework che rielabora un'intera partita in pochi secondi
       - Uso di elaborazione batch e parallela
       - Ottimizzazione dei KPI relativi ai passaggi
+    cv_tag: sport-tech
     cv_summary: >-
       Con il team del cliente, nuovo framework Python/Polars per il calcolo dei KPI
       post-partita: tempo di rielaborazione di una partita da oltre 90 minuti a pochi
@@ -67,6 +69,7 @@ highlights:
       - Ricostruzione degli oggetti da salvare a DB
       - Revisione delle tabelle PostgreSQL per distinguere i provider
       - Adattamento dei componenti Python che leggono le tabelle PostgreSQL
+    cv_tag: sport-tech
     cv_summary: >-
       Refactoring di microservizi Java e Python e dello schema PostgreSQL per il passaggio a un nuovo data provider, mantenendo la compatibilità con il precedente.
 featured: true

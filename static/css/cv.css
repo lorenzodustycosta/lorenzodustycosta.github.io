@@ -150,6 +150,9 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .cv-meta { margin-top: 0.5mm; }
 .cv-meta-inline { margin-left: 1mm; white-space: nowrap; }
+.cv-bullets .cv-meta-inline { color: var(--link); font-weight: 600; } /* settore del bullet (cv_tag): accento */
+/* Settori accanto all'azienda: come il settore dei bullet */
+.cv-sector { font-family: var(--font-mono); font-size: 7.5pt; font-weight: 600; color: var(--link); white-space: nowrap; }
 .cv-entry-summary { margin-top: 1mm; color: var(--ink-muted); }
 /* Due liste per esperienza (dentro e fuori da .cv-keep), che a vista sono una sola */
 .cv-bullets { margin-top: 1.5mm; padding-left: 4mm; }
