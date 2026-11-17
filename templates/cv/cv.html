@@ -7,7 +7,7 @@
 {% set profile = site.profile %}
 {% set labels = cv.settings.labels %}
 {% macro dates(start, end) %}<span class="nowrap">{{ start | month_year }}{% if end and end != start %} – {{ end | month_year }}{% endif %}</span>{% endmacro %}
-{# Un highlight = un bullet; il settore (tag) compare solo nel fallback senza cv_summary #}
+{# Un highlight = un bullet; il settore è cv_tag, o il tag del sito nel fallback senza cv_summary #}
 {% macro bullets(items) %}<ul class="cv-bullets">
   {% for b in items %}<li>{{ b.text | cv_inline }}{% if b.tag %} <span class="cv-meta-inline">{{ b.tag }}</span>{% endif %}</li>
   {% endfor %}</ul>{% endmacro %}
@@ -76,7 +76,9 @@
         <article class="cv-entry">
           <div class="cv-keep">
             {% if loop.first %}<h2>{{ labels.experience }}</h2>{% endif %}
-            <h3>{{ e.role }}{% if e.company %} <span class="cv-org">· {{ e.company }}</span>{% endif %}</h3>
+            <h3>{{ e.role }}{% if e.company %} <span class="cv-org">· {{ e.company }} ·</span>
+              {#- settori dell'esperienza; il freelance non ha azienda: il settore è su ogni bullet (cv_tag) #}
+              <span class="cv-sector">{% for s in e.sectors %}{{ cv.settings.sectors.get(s, s) }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}</h3>
             <p class="cv-meta">{{ dates(e.start, e.end) }}{% if e.location %} · {{ e.location }}{% endif %}</p>
             {% if item.head_bullets %}{{ bullets(item.head_bullets) }}{% endif %}
           </div>
